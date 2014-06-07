@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/shop_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/text_color"
+        android:paddingTop="@dimen/list_view_horizontal_padding"
+        android:paddingBottom="@dimen/list_view_horizontal_padding"/>
+
+</RelativeLayout>

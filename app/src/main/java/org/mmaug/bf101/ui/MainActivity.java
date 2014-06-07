@@ -5,13 +5,15 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import org.mmaug.bf101.Config;
 import com.yelinaung.bf101.app.R;
+
+import org.mmaug.bf101.adapter.ShopListAdapter;
 import org.mmaug.bf101.model.ShopClient;
+
 import java.util.ArrayList;
 import java.util.List;
 import retrofit.RestAdapter;
@@ -30,7 +32,7 @@ public class MainActivity extends ActionBarActivity {
   private class fetchTask extends AsyncTask<String, Void, List<ShopClient.Shop>> {
 
     @Override protected List<ShopClient.Shop> doInBackground(String... params) {
-
+      // ToDo Need to catch Connection Problem Exception
       RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(Config.BASE_URL).build();
       ShopClient.ShopList shopClient = restAdapter.create(ShopClient.ShopList.class);
       return shopClient.getAllShop();
@@ -38,15 +40,13 @@ public class MainActivity extends ActionBarActivity {
 
     @Override protected void onPostExecute(List<ShopClient.Shop> result) {
       super.onPostExecute(result);
-      List<String> item = new ArrayList<String>();
+      ArrayList<ShopClient.Shop> items = new ArrayList<ShopClient.Shop>();
 
       for (ShopClient.Shop t : result) {
-        item.add(t.name);
+        items.add(t);
       }
-      //ToDo replace with ListItemAdapter
-      ArrayAdapter<String> itemsAdapter =
-          new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1,
-              item);
+
+      ShopListAdapter itemsAdapter = new ShopListAdapter(getApplicationContext(), items);
       shopListView.setAdapter(itemsAdapter);
     }
   }
