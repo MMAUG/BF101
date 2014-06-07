@@ -3,6 +3,8 @@ package com.yelinaung.bf101.app.model;
 
 import android.util.Log;
 
+import com.google.gson.JsonArray;
+
 import java.util.List;
 
 import retrofit.http.GET;
@@ -18,7 +20,7 @@ public class ShopClient {
     }
 
     public interface ShopList {
-        @GET("/shop.json")
+        @GET("/shops.json")
         List<Shop> getAllShop();
     }
 }
