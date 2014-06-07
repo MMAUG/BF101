@@ -9,11 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import org.mmaug.bf101.Config;
 import com.yelinaung.bf101.app.R;
-import org.mmaug.bf101.model.ShopClient;
 import java.util.ArrayList;
 import java.util.List;
+import org.mmaug.bf101.Config;
+import org.mmaug.bf101.model.ShopClient;
+import org.mmaug.bf101.utils.NetUtils;
 import retrofit.RestAdapter;
 
 public class MainActivity extends ActionBarActivity {
@@ -23,8 +24,11 @@ public class MainActivity extends ActionBarActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.inject(this);
-    fetchTask fetchTask = new fetchTask();
-    fetchTask.execute();
+
+    if (NetUtils.isOnline(MainActivity.this)) {
+      fetchTask fetchTask = new fetchTask();
+      fetchTask.execute();
+    }
   }
 
   private class fetchTask extends AsyncTask<String, Void, List<ShopClient.Shop>> {
