@@ -1,9 +1,10 @@
-package com.yelinaung.bf101.app;
+package com.yelinaung.bf101.app.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.yelinaung.bf101.app.R;
 
 public class MainActivity extends ActionBarActivity {
 

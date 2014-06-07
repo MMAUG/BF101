@@ -1,4 +1,4 @@
-package com.yelinaung.bf101.app.storageUtil;
+package com.yelinaung.bf101.app.utils;
 
 
 import android.content.Context;
