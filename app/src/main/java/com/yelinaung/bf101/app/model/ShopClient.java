@@ -4,6 +4,7 @@ package com.yelinaung.bf101.app.model;
 import android.util.Log;
 
 import com.google.gson.JsonArray;
+import com.yelinaung.bf101.app.Config;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class ShopClient {
     }
 
     public interface ShopList {
-        @GET("/shops.json")
+        @GET(Config.SHOP_URL)
         List<Shop> getAllShop();
     }
 }

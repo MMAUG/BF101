@@ -1,4 +1,4 @@
-package com.yelinaung.bf101.app;
+package com.yelinaung.bf101.app.ui;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.yelinaung.bf101.app.Config;
 import com.yelinaung.bf101.app.model.ShopClient;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import retrofit.RestAdapter;
+import com.yelinaung.bf101.app.R;
 
 public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.listView)
@@ -26,13 +28,13 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
-        TweetTask tweetTask = new TweetTask();
-        tweetTask.execute();
+        fetchTask fetchTask = new fetchTask();
+        fetchTask.execute();
 
 
     }
 
-    private class TweetTask extends AsyncTask<String, Void, List<ShopClient.Shop>> {
+    private class fetchTask extends AsyncTask<String, Void, List<ShopClient.Shop>> {
 
         @Override
         protected List<ShopClient.Shop> doInBackground(String... params) {
@@ -52,6 +54,7 @@ public class MainActivity extends ActionBarActivity {
             for (ShopClient.Shop t : result) {
                 item.add(t.name.toString());
             }
+            //ToDo replace with ListeItemAdapter
             ArrayAdapter<String> itemsAdapter =
                     new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, item);
             shopListView.setAdapter(itemsAdapter);

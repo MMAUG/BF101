@@ -5,4 +5,5 @@ package com.yelinaung.bf101.app;
  */
 public class Config {
   public static final String BASE_URL = "https://raw.githubusercontent.com/MMAUG/BF101-API/master/json";
+  public static final String SHOP_URL = "/shops.json";
 }
