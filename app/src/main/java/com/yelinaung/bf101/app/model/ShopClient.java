@@ -1,13 +1,7 @@
 package com.yelinaung.bf101.app.model;
 
-
-import android.util.Log;
-
-import com.google.gson.JsonArray;
 import com.yelinaung.bf101.app.Config;
-
 import java.util.List;
-
 import retrofit.http.GET;
 
 /**
@@ -16,12 +10,11 @@ import retrofit.http.GET;
 
 public class ShopClient {
 
-   public static class Shop {
-        public String name;
-    }
+  public static class Shop {
+    public String name;
+  }
 
-    public interface ShopList {
-        @GET(Config.SHOP_URL)
-        List<Shop> getAllShop();
-    }
+  public interface ShopList {
+    @GET(Config.SHOP_URL) List<Shop> getAllShop();
+  }
 }
