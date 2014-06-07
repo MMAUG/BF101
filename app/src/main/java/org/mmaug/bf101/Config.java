@@ -1,4 +1,4 @@
-package com.yelinaung.bf101.app;
+package org.mmaug.bf101;
 
 /**
  * Created by Ye Lin Aung on 14/06/07.

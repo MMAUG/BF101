@@ -1,6 +1,6 @@
-package com.yelinaung.bf101.app.model;
+package org.mmaug.bf101.model;
 
-import com.yelinaung.bf101.app.Config;
+import org.mmaug.bf101.Config;
 import java.util.List;
 import retrofit.http.GET;
 

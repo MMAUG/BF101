@@ -1,4 +1,4 @@
-package com.yelinaung.bf101.app.ui;
+package org.mmaug.bf101.ui;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,9 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.yelinaung.bf101.app.Config;
+import org.mmaug.bf101.Config;
 import com.yelinaung.bf101.app.R;
-import com.yelinaung.bf101.app.model.ShopClient;
+import org.mmaug.bf101.model.ShopClient;
 import java.util.ArrayList;
 import java.util.List;
 import retrofit.RestAdapter;

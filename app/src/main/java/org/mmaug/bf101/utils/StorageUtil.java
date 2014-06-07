@@ -1,4 +1,4 @@
-package com.yelinaung.bf101.app.utils;
+package org.mmaug.bf101.utils;
 
 
 import android.content.Context;
