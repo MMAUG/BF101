@@ -17,6 +17,7 @@
 package org.mmaug.bf101.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,13 +28,15 @@ import com.yelinaung.bf101.app.R;
 
 
 public class FeatureFoodListAdapter extends BaseAdapter {
-
+    Context mContext;
+    Typeface font;
     private String[] featureFood;
     private LayoutInflater inflater;
 
     public FeatureFoodListAdapter(Context context, String[] featureFood) {
         inflater = LayoutInflater.from(context);
         this.featureFood = featureFood;
+        this.mContext = context;
     }
 
     @Override
@@ -65,10 +68,10 @@ public class FeatureFoodListAdapter extends BaseAdapter {
         }
 
         holder.text.setText(featureFood[position]);
-
+         font = Typeface.createFromAsset(mContext.getAssets(), "fonts/zawgyi.ttf");
+        holder.text.setTypeface(font);
         return convertView;
     }
-
 
 
     class ViewHolder {

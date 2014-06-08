@@ -93,7 +93,7 @@ public class MainActivity extends ActionBarActivity {
                 items.add(t);
             }
 
-            ShopListAdapter itemsAdapter = new ShopListAdapter(mActivity, items);
+            ShopListAdapter itemsAdapter = new ShopListAdapter(mActivity.getApplicationContext(), items);
             itemsAdapter.notifyDataSetChanged();
             shopListView.setAdapter(itemsAdapter);
 

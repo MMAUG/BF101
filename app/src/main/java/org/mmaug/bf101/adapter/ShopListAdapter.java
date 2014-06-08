@@ -18,7 +18,7 @@ package org.mmaug.bf101.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +53,7 @@ public class ShopListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         ViewHolder holder;
+
         LayoutInflater mInflater =
                 (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (view != null) {
@@ -65,7 +66,11 @@ public class ShopListAdapter extends BaseAdapter {
 
         ShopClient.Shop model = getItem(position);
         holder.name.setText(model.name);
+        Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/zawgyi.ttf");
+        holder.name.setTypeface(font);
         holder.address.setText(model.address);
+        holder.address.setTypeface(font);
+
         // ToDo Need to set Myanmar Font in TextView        // etc...
 
         return view;

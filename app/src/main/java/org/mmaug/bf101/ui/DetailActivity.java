@@ -22,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -50,14 +49,14 @@ public class DetailActivity extends ActionBarActivity {
         setContentView(R.layout.activity_detail);
         List<String> featureFoodlist = getIntent().getStringArrayListExtra("Feature");
         String feature[] = new String[featureFoodlist.size()];
-        int i =0;
+        int i = 0;
         ButterKnife.inject(this);
-        while (i<featureFoodlist.size()) {
-            feature[i]=featureFoodlist.get(i);
+        while (i < featureFoodlist.size()) {
+            feature[i] = featureFoodlist.get(i);
             i++;
         }
-        View headerView = ((LayoutInflater)this.getSystemService(this.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.header, null, false);
-        FeatureFoodListAdapter featureFoodListAdapter = new FeatureFoodListAdapter(this,feature);
+        View headerView = ((LayoutInflater) this.getSystemService(this.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.header, null, false);
+        FeatureFoodListAdapter featureFoodListAdapter = new FeatureFoodListAdapter(this, feature);
         featureListView.setAdapter(featureFoodListAdapter);
         featureListView.addHeaderView(headerView);
 
