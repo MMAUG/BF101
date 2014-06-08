@@ -3,6 +3,11 @@ BF101
 
 Warning : This is a WIP project. Changes are made frequently.
 
+Code Status
+----------
+
+[![Build Status](https://travis-ci.org/MMAUG/BF101.svg?branch=master)](https://travis-ci.org/MMAUG/BF101)
+
 Contributing
 ------------
 
