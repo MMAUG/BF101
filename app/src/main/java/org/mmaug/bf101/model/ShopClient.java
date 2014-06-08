@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2014 MMAUG (Myanmar Android User Group)
  *
@@ -18,7 +17,9 @@
 package org.mmaug.bf101.model;
 
 import org.mmaug.bf101.Config;
+
 import java.util.List;
+
 import retrofit.http.GET;
 
 /**
@@ -27,12 +28,17 @@ import retrofit.http.GET;
 
 public class ShopClient {
 
-  public static class Shop {
-    public String name;
-    public String address;
-  }
+    public static class Shop {
+        public String name;
+        public String address;
+        public List<String> feature_food;
+        public Double latitude;
+        public Double longitude;
+    }
 
-  public interface ShopList {
-    @GET(Config.SHOP_URL) List<Shop> getAllShop();
-  }
+
+    public interface ShopList {
+        @GET(Config.SHOP_URL)
+        List<Shop> getAllShop();
+    }
 }

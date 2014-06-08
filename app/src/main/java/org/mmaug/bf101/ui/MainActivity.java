@@ -23,6 +23,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.yelinaung.bf101.app.R;
@@ -37,20 +39,14 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnItemClick;
 import retrofit.RestAdapter;
 
 public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.listView)
     ListView shopListView;
     Activity mActivity;
+    ArrayList<ShopClient.Shop> items;
 
-    @OnItemClick(R.id.listView)
-    public void toDetailActivity()
-    {
-        Intent intentToDetail = new Intent(this, DetailActivity.class);
-        startActivity(intentToDetail);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +59,17 @@ public class MainActivity extends ActionBarActivity {
             fetchTask fetchTask = new fetchTask();
             fetchTask.execute();
         }
+
+        shopListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intentToDetail = new Intent(getApplicationContext(), DetailActivity.class);
+                List<String> featureFood = items.get(position).feature_food;
+                intentToDetail.putStringArrayListExtra("Feature", (ArrayList<String>) featureFood);
+                startActivity(intentToDetail);
+
+            }
+        });
 
     }
 
@@ -80,7 +87,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(List<ShopClient.Shop> result) {
             super.onPostExecute(result);
-            ArrayList<ShopClient.Shop> items = new ArrayList<ShopClient.Shop>();
+            items = new ArrayList<ShopClient.Shop>();
 
             for (ShopClient.Shop t : result) {
                 items.add(t);
