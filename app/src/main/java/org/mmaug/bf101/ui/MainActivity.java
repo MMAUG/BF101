@@ -26,6 +26,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.yelinaung.bf101.app.R;
 
@@ -44,6 +46,12 @@ import retrofit.RestAdapter;
 public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.listView)
     ListView shopListView;
+    @InjectView(R.id.progressBar)
+    ProgressBar mProgressBar;
+    @InjectView(R.id.emptyView)
+    View emptyView;
+    @InjectView(R.id.loadingText)
+    TextView loadingText;
     Activity mActivity;
     ArrayList<ShopClient.Shop> items;
 
@@ -65,9 +73,10 @@ public class MainActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intentToDetail = new Intent(getApplicationContext(), DetailActivity.class);
                 List<String> featureFood = items.get(position).feature_food;
+                intentToDetail.putExtra("shopname",items.get(position).name);
+                intentToDetail.putExtra("shopaddress",items.get(position).address);
                 intentToDetail.putStringArrayListExtra("Feature", (ArrayList<String>) featureFood);
                 startActivity(intentToDetail);
-
             }
         });
 
@@ -75,10 +84,18 @@ public class MainActivity extends ActionBarActivity {
 
 
     private class fetchTask extends AsyncTask<String, Void, List<ShopClient.Shop>> {
+        protected void onPreExecute() {
+            // perhaps show a dialog
+            emptyView.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.VISIBLE);
+            shopListView.setVisibility(View.VISIBLE);
+            loadingText.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected List<ShopClient.Shop> doInBackground(String... params) {
             // ToDo Need to catch Connection Problem Exception
+
             RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(Config.BASE_URL).build();
             ShopClient.ShopList shopClient = restAdapter.create(ShopClient.ShopList.class);
             return shopClient.getAllShop();
@@ -92,7 +109,10 @@ public class MainActivity extends ActionBarActivity {
             for (ShopClient.Shop t : result) {
                 items.add(t);
             }
-
+            mProgressBar.setVisibility(View.GONE);
+            emptyView.setVisibility(View.GONE);
+            loadingText.setVisibility(View.GONE);
+            shopListView.setVisibility(View.VISIBLE);
             ShopListAdapter itemsAdapter = new ShopListAdapter(mActivity.getApplicationContext(), items);
             itemsAdapter.notifyDataSetChanged();
             shopListView.setAdapter(itemsAdapter);

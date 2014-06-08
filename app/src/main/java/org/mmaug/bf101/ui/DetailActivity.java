@@ -16,6 +16,7 @@
 
 package org.mmaug.bf101.ui;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -39,18 +40,30 @@ public class DetailActivity extends ActionBarActivity {
 
     @InjectView(R.id.list)
     ListView featureListView;
-
+    String ShopName;
+    String ShopAddress;
     @InjectView(R.id.headerText)
-    TextView TitleText;
-
+    TextView shopName;
+    @InjectView(R.id.Shop_Address)
+    TextView Shopaddress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_detail);
+        ButterKnife.inject(this);
+        Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/zawgyi.ttf");
+        ShopName =  getIntent().getStringExtra("shopname");
+        ShopAddress = getIntent().getStringExtra("shopaddress");
+        shopName.setText(ShopName);
+        Shopaddress.setText(ShopAddress);
+        shopName.setTypeface(font);
+        Shopaddress.setTypeface(font);
         List<String> featureFoodlist = getIntent().getStringArrayListExtra("Feature");
         String feature[] = new String[featureFoodlist.size()];
         int i = 0;
-        ButterKnife.inject(this);
+
         while (i < featureFoodlist.size()) {
             feature[i] = featureFoodlist.get(i);
             i++;
@@ -75,7 +88,12 @@ public class DetailActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.onBackPressed();
+                return false;
+           default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

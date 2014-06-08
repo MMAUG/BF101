@@ -70,9 +70,6 @@ public class ShopListAdapter extends BaseAdapter {
         holder.name.setTypeface(font);
         holder.address.setText(model.address);
         holder.address.setTypeface(font);
-
-        // ToDo Need to set Myanmar Font in TextView        // etc...
-
         return view;
     }
 
