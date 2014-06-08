@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2014 MMAUG (Myanmar Android User Group)
  *
@@ -17,6 +16,7 @@
 
 package org.mmaug.bf101.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,11 +31,16 @@ import org.mmaug.bf101.model.ShopClient;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 /**
  * This file is created by Nyan Lynn Htut
  * for BF101 on 6/8/2014.
  */
+
 public class ShopListAdapter extends BaseAdapter {
+
     private final Context mContext;
     private List<ShopClient.Shop> shops;
 
@@ -44,37 +49,50 @@ public class ShopListAdapter extends BaseAdapter {
         this.shops = shops;
     }
 
-    @Override public View getView(int position, View view, ViewGroup parent) {
+    @Override
+    public View getView(int position, View view, ViewGroup parent) {
         ViewHolder holder;
-        if (view == null) {
-            view = LayoutInflater.from(mContext).inflate(R.layout.shop_list_item, parent, false);
-            holder = new ViewHolder();
-            holder.name = (TextView) view.findViewById(R.id.shop_name);
-            view.setTag(holder);
-        } else {
+        LayoutInflater mInflater =
+                (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        if (view != null) {
             holder = (ViewHolder) view.getTag();
+        } else {
+            view = mInflater.inflate(R.layout.shop_list_item, parent, false);
+            holder = new ViewHolder(view);
+            view.setTag(holder);
         }
 
         ShopClient.Shop model = getItem(position);
         holder.name.setText(model.name);
-        // ToDo Need to set Myanmar Font in TextView
+        holder.address.setText(model.address);
+        // ToDo Need to set Myanmar Font in TextView        // etc...
 
         return view;
     }
 
-    @Override public int getCount() {
+    @Override
+    public int getCount() {
         return shops.size();
     }
 
-    @Override public ShopClient.Shop getItem(int position) {
+    @Override
+    public ShopClient.Shop getItem(int position) {
         return shops.get(position);
     }
 
-    @Override public long getItemId(int position) {
+    @Override
+    public long getItemId(int position) {
         return position;
     }
 
     static class ViewHolder {
+        @InjectView(R.id.shop_name)
         TextView name;
+        @InjectView(R.id.shop_address)
+        TextView address;
+
+        public ViewHolder(View view) {
+            ButterKnife.inject(this, view);
+        }
     }
 }

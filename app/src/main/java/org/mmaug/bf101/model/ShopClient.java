@@ -29,6 +29,7 @@ public class ShopClient {
 
   public static class Shop {
     public String name;
+    public String address;
   }
 
   public interface ShopList {
