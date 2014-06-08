@@ -38,7 +38,8 @@
         android:visibility="gone"
         android:layout_height="match_parent"
         android:id="@+id/listView"
-        android:dividerHeight="1dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"
         android:scrollbarStyle="outsideInset"
         android:paddingRight="1dp"
         android:paddingLeft="1dp"/>
