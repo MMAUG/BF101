@@ -26,10 +26,13 @@
 
 
     <TextView
+        android:drawableLeft="@drawable/shop"
         android:id="@+id/headerText"
+        android:gravity="center_vertical"
         android:paddingBottom="10dp"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:paddingLeft="10dp"
+        android:paddingRight="6dp"
         android:text="@string/hello_world"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

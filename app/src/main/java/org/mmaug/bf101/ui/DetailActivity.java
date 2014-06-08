@@ -54,7 +54,7 @@ public class DetailActivity extends ActionBarActivity {
         setContentView(R.layout.activity_detail);
         ButterKnife.inject(this);
         Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/zawgyi.ttf");
-        ShopName =  getIntent().getStringExtra("shopname");
+        ShopName = " "+ getIntent().getStringExtra("shopname");
         ShopAddress = getIntent().getStringExtra("shopaddress");
         shopName.setText(ShopName);
         Shopaddress.setText(ShopAddress);

@@ -2,8 +2,8 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 tools:context="org.mmaug.bf101.ui.MainActivity">
@@ -38,10 +38,8 @@
         android:visibility="gone"
         android:layout_height="match_parent"
         android:id="@+id/listView"
-        android:divider="@color/list_item_divider"
         android:dividerHeight="1dp"
         android:scrollbarStyle="outsideInset"
-        android:padding="3dp"
         android:paddingRight="1dp"
         android:paddingLeft="1dp"/>
 
