@@ -18,10 +18,13 @@ package org.mmaug.bf101.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.yelinaung.bf101.app.R;
 
@@ -38,6 +41,9 @@ public class DetailActivity extends ActionBarActivity {
     @InjectView(R.id.list)
     ListView featureListView;
 
+    @InjectView(R.id.headerText)
+    TextView TitleText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +56,10 @@ public class DetailActivity extends ActionBarActivity {
             feature[i]=featureFoodlist.get(i);
             i++;
         }
+        View headerView = ((LayoutInflater)this.getSystemService(this.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.header, null, false);
         FeatureFoodListAdapter featureFoodListAdapter = new FeatureFoodListAdapter(this,feature);
         featureListView.setAdapter(featureFoodListAdapter);
+        featureListView.addHeaderView(headerView);
 
     }
 

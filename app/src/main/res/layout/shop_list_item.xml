@@ -2,6 +2,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
+                android:padding="10dp"
                 android:layout_height="match_parent">
 
     <TextView
@@ -10,12 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textColor="@color/text_color"
-        android:paddingBottom="@dimen/list_view_horizontal_padding"/>
+        />
 
     <TextView
         android:layout_below="@+id/shop_name"
         android:id="@+id/shop_address"
-        android:paddingBottom="@dimen/list_view_horizontal_padding"
         android:textColor="@color/text_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
