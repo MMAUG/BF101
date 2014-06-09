@@ -33,7 +33,6 @@
         android:textSize="15sp"
         android:paddingLeft="10dp"
         android:paddingRight="6dp"
-        android:text="@string/hello_world"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

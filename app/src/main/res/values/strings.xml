@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">BF101</string>
-    <string name="hello_world">Hello world!</string>
     <string name="featuretitle">Featured Food</string>
     <string name="action_settings">Settings</string>
     <string name="loading">Please Wait</string>
