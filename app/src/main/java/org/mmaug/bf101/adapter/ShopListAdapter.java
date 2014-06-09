@@ -25,8 +25,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.yelinaung.bf101.app.R;
-
+import org.mmaug.bf101.R;
 import org.mmaug.bf101.model.ShopClient;
 
 import java.util.ArrayList;

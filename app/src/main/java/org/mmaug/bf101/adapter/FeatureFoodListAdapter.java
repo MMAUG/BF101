@@ -24,7 +24,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.yelinaung.bf101.app.R;
+import org.mmaug.bf101.R;
 
 
 public class FeatureFoodListAdapter extends BaseAdapter {
@@ -68,7 +68,7 @@ public class FeatureFoodListAdapter extends BaseAdapter {
         }
 
         holder.text.setText(featureFood[position]);
-         font = Typeface.createFromAsset(mContext.getAssets(), "fonts/zawgyi.ttf");
+        font = Typeface.createFromAsset(mContext.getAssets(), "fonts/zawgyi.ttf");
         holder.text.setTypeface(font);
         return convertView;
     }

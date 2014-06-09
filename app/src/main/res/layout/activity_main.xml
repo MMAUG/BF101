@@ -30,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/progressBar"/>
 
     <ListView

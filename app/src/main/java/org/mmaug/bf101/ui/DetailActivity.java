@@ -26,8 +26,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.yelinaung.bf101.app.R;
-
+import org.mmaug.bf101.R;
 import org.mmaug.bf101.adapter.FeatureFoodListAdapter;
 
 import java.util.List;

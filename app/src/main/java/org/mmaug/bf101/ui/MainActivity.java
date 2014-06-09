@@ -29,9 +29,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.yelinaung.bf101.app.R;
-
 import org.mmaug.bf101.Config;
+import org.mmaug.bf101.R;
 import org.mmaug.bf101.adapter.ShopListAdapter;
 import org.mmaug.bf101.model.ShopClient;
 import org.mmaug.bf101.utils.NetUtils;
