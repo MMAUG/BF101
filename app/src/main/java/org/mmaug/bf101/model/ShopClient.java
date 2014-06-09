@@ -34,6 +34,8 @@ public class ShopClient {
         public List<String> feature_food;
         public Double latitude;
         public Double longitude;
+        public Boolean newshop;
+
     }
 
 
