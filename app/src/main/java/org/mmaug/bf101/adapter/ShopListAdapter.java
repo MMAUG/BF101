@@ -53,7 +53,6 @@ public class ShopListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         ViewHolder holder;
-
         LayoutInflater mInflater =
                 (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (view != null) {
@@ -63,13 +62,15 @@ public class ShopListAdapter extends BaseAdapter {
             holder = new ViewHolder(view);
             view.setTag(holder);
         }
-
         ShopClient.Shop model = getItem(position);
         holder.name.setText(model.name);
         Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/zawgyi.ttf");
         holder.name.setTypeface(font);
         holder.address.setText(model.address);
         holder.address.setTypeface(font);
+        if(model.newshop == true){
+            holder.newshop.setVisibility(View.VISIBLE);
+        }
         return view;
     }
 
@@ -93,6 +94,8 @@ public class ShopListAdapter extends BaseAdapter {
         TextView name;
         @InjectView(R.id.shop_address)
         TextView address;
+        @InjectView(R.id.newshop)
+        TextView newshop;
 
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);
