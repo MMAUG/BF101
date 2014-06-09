@@ -67,7 +67,7 @@ public class DetailActivity extends ActionBarActivity {
             feature[i] = featureFoodlist.get(i);
             i++;
         }
-        View headerView = ((LayoutInflater) this.getSystemService(this.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.header, null, false);
+        View headerView = ((LayoutInflater) this.getSystemService(this.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.header, featureListView, false);
         FeatureFoodListAdapter featureFoodListAdapter = new FeatureFoodListAdapter(this, feature);
         featureListView.addHeaderView(headerView);
         featureListView.setAdapter(featureFoodListAdapter);
