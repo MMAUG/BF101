@@ -25,74 +25,75 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import java.util.List;
 import org.mmaug.bf101.R;
 import org.mmaug.bf101.adapter.FeatureFoodListAdapter;
 
-import java.util.List;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-
-
 public class DetailActivity extends ActionBarActivity {
 
-    @InjectView(R.id.list)
-    ListView featureListView;
-    String ShopName;
-    String ShopAddress;
-    @InjectView(R.id.headerText)
-    TextView shopName;
-    @InjectView(R.id.Shop_Address)
-    TextView Shopaddress;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_detail);
-        ButterKnife.inject(this);
-        Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/zawgyi.ttf");
-        ShopName = " "+ getIntent().getStringExtra("shopname");
-        ShopAddress = getIntent().getStringExtra("shopaddress");
-        shopName.setText(ShopName);
-        Shopaddress.setText(ShopAddress);
-        shopName.setTypeface(font);
-        Shopaddress.setTypeface(font);
-        List<String> featureFoodlist = getIntent().getStringArrayListExtra("Feature");
-        String feature[] = new String[featureFoodlist.size()];
-        int i = 0;
+  @InjectView(R.id.list) ListView featureListView;
+  @InjectView(R.id.headerText) TextView shopNameTextView;
+  @InjectView(R.id.Shop_Address) TextView shopAddressTextView;
 
-        while (i < featureFoodlist.size()) {
-            feature[i] = featureFoodlist.get(i);
-            i++;
-        }
-        View headerView = ((LayoutInflater) this.getSystemService(this.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.header, featureListView, false);
-        FeatureFoodListAdapter featureFoodListAdapter = new FeatureFoodListAdapter(this, feature);
-        featureListView.addHeaderView(headerView);
-        featureListView.setAdapter(featureFoodListAdapter);
+  String shopName;
+  String shopAddress;
 
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    getSupportActionBar().setHomeButtonEnabled(true);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    setContentView(R.layout.activity_detail);
+
+    ButterKnife.inject(this);
+
+    Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/zawgyi.ttf");
+
+    shopName = " " + getIntent().getStringExtra("shopname");
+    shopAddress = getIntent().getStringExtra("shopaddress");
+    shopNameTextView.setText(shopName);
+    shopAddressTextView.setText(shopAddress);
+    shopNameTextView.setTypeface(font);
+    shopAddressTextView.setTypeface(font);
+
+    List<String> featureFoodList = getIntent().getStringArrayListExtra("Feature");
+    String feature[] = new String[featureFoodList.size()];
+    int i = 0;
+
+    while (i < featureFoodList.size()) {
+      feature[i] = featureFoodList.get(i);
+      i++;
     }
+    View headerView =
+        ((LayoutInflater) this.getSystemService(this.LAYOUT_INFLATER_SERVICE)).inflate(
+            R.layout.header, featureListView, false);
+    FeatureFoodListAdapter featureFoodListAdapter = new FeatureFoodListAdapter(this, feature);
+    featureListView.addHeaderView(headerView);
+    featureListView.setAdapter(featureFoodListAdapter);
+  }
 
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.detail, menu);
+    return true;
+  }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.detail, menu);
-        return true;
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        this.onBackPressed();
+        return false;
+      default:
+        return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.onBackPressed();
-                return false;
-           default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+  }
 }
