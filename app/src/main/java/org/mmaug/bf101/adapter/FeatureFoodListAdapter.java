@@ -16,6 +16,7 @@
 
 package org.mmaug.bf101.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -26,15 +27,16 @@ import android.widget.TextView;
 
 import org.mmaug.bf101.R;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 
 public class FeatureFoodListAdapter extends BaseAdapter {
     Context mContext;
     Typeface font;
     private String[] featureFood;
-    private LayoutInflater inflater;
 
     public FeatureFoodListAdapter(Context context, String[] featureFood) {
-        inflater = LayoutInflater.from(context);
         this.featureFood = featureFood;
         this.mContext = context;
     }
@@ -57,25 +59,29 @@ public class FeatureFoodListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-
-        if (convertView == null) {
-            holder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.feature_list_item, parent, false);
-            holder.text = (TextView) convertView.findViewById(R.id.featureFoodName);
-            convertView.setTag(holder);
-        } else {
+        LayoutInflater mInflater =
+                (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        if (convertView != null) {
             holder = (ViewHolder) convertView.getTag();
+        } else {
+            convertView = mInflater.inflate(R.layout.feature_list_item, parent, false);
+            holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
         }
-
-        holder.text.setText(featureFood[position]);
+        holder.fetureFoodName.setText(featureFood[position]);
         font = Typeface.createFromAsset(mContext.getAssets(), "fonts/zawgyi.ttf");
-        holder.text.setTypeface(font);
+        holder.fetureFoodName.setTypeface(font);
         return convertView;
     }
 
 
-    class ViewHolder {
-        TextView text;
+    static class ViewHolder {
+        @InjectView(R.id.featureFoodName)
+        TextView fetureFoodName;
+
+        public ViewHolder(View view) {
+            ButterKnife.inject(this, view);
+        }
     }
 
 }
