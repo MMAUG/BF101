@@ -7,30 +7,47 @@
 
   <TextView
       android:id="@+id/shop_name"
+      android:text="@string/hello_blank_fragment"
       android:textSize="16sp"
       android:layout_marginLeft="10dp"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
       android:textColor="@drawable/text_bg" />
+  <!--<TextView-->
+      <!--android:paddingTop="5dp"-->
+      <!--android:id="@+id/new_shop"-->
+      <!--android:text="@string/cap_new"-->
+      <!--android:gravity="center"-->
+      <!--android:textStyle="bold"-->
+      <!--android:visibility="gone"-->
+      <!--android:layout_alignParentRight="true"-->
+      <!--android:textColor="@color/text_color"-->
+      <!--android:layout_width="wrap_content"-->
+      <!--android:layout_height="wrap_content" />-->
+
   <TextView
-      android:paddingTop="5dp"
       android:id="@+id/new_shop"
       android:text="@string/cap_new"
-      android:gravity="center"
+      android:textColor="@android:color/white"
       android:textStyle="bold"
+      android:background="@color/text_color"
+      android:paddingTop="3dp"
+      android:paddingBottom="3dp"
+      android:paddingLeft="2dp"
+      android:paddingRight="2dp"
       android:visibility="gone"
-      android:layout_alignParentRight="true"
-      android:textColor="@color/text_color"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content" />
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_alignParentEnd="true" />
 
   <TextView
       android:layout_below="@+id/shop_name"
+      android:text="@string/hello_blank_fragment"
       android:layout_marginTop="10dp"
       android:textSize="12sp"
       android:layout_marginLeft="10dp"
       android:layout_marginBottom="10dp"
-      android:textAppearance="?attr/textAppearanceListItem"
       android:id="@+id/shop_address"
       android:textColor="@color/text_color"
       android:layout_width="match_parent"
