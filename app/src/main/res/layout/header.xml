@@ -27,7 +27,7 @@
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:text="@string/featuretitle"
+        android:text="@string/feature_title"
         android:background="@color/abc_search_url_text_normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

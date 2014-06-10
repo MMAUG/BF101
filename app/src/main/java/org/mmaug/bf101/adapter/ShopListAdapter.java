@@ -93,7 +93,7 @@ public class ShopListAdapter extends BaseAdapter {
         TextView name;
         @InjectView(R.id.shop_address)
         TextView address;
-        @InjectView(R.id.newshop)
+        @InjectView(R.id.new_shop)
         TextView newshop;
 
         public ViewHolder(View view) {
