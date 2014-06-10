@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/view"
@@ -13,26 +11,29 @@
       android:layout_marginLeft="10dp"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
-      android:textColor="@color/text_color"/>
+      android:textColor="@drawable/text_bg" />
   <TextView
+      android:paddingTop="5dp"
       android:id="@+id/new_shop"
       android:text="@string/cap_new"
+      android:gravity="center"
       android:textStyle="bold"
       android:visibility="gone"
       android:layout_alignParentRight="true"
       android:textColor="@color/text_color"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content" />
 
   <TextView
-      android:id="@+id/shop_address"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
       android:layout_below="@+id/shop_name"
       android:layout_marginTop="10dp"
+      android:textSize="12sp"
       android:layout_marginLeft="10dp"
       android:layout_marginBottom="10dp"
-      android:textSize="12sp"
       android:textAppearance="?attr/textAppearanceListItem"
-      android:textColor="@color/text_color"/>
+      android:id="@+id/shop_address"
+      android:textColor="@color/text_color"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content" />
+
 </RelativeLayout>
