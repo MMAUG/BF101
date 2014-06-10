@@ -29,7 +29,7 @@
             android:shape="rectangle"
             android:dither="true">
             <corners android:radius="2dp"/>
-            <solid android:color="@android:color/white"/>
+            <solid android:color="#FFFFFF"/>
             <padding
                 android:bottom="10dp"
                 android:left="2dp"
@@ -38,3 +38,6 @@
         </shape>
     </item>
 </layer-list>
+
+
+
