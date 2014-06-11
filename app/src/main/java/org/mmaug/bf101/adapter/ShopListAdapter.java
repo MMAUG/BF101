@@ -67,7 +67,7 @@ public class ShopListAdapter extends BaseAdapter {
         holder.name.setTypeface(font);
         holder.address.setText(model.address);
         holder.address.setTypeface(font);
-        if(model.newshop == true){
+        if(model.newshop){
             holder.newshop.setVisibility(View.VISIBLE);
         }
         return view;
