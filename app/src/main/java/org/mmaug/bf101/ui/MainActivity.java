@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class MainActivity extends ActionBarActivity {
   @InjectView(R.id.progressBar) ProgressBar mProgressBar;
   @InjectView(R.id.emptyView) View emptyView;
   @InjectView(R.id.loadingText) TextView loadingText;
+  @InjectView(R.id.btnretry) Button retry;
   Activity mActivity;
   ArrayList<Shop> items;
   StorageUtil storageUtil;
@@ -84,6 +86,7 @@ public class MainActivity extends ActionBarActivity {
         public void failure(RetrofitError error) {
           Toast.makeText(getApplicationContext(), "Check your internet connection...",
               Toast.LENGTH_SHORT).show();
+          retry.setVisibility(View.VISIBLE);
         }
       });
     } else {

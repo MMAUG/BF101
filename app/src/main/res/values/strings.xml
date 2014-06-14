@@ -22,6 +22,6 @@
   <string name="loading">Please Wait</string>
   <string name="hello_blank_fragment">Hello blank fragment</string>
   <string name="title_activity_detail">DetailActivity</string>
-
+  <string name="network_error">Retry</string>
   <string name="cap_new">NEW</string>
 </resources>

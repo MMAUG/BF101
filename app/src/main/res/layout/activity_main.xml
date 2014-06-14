@@ -31,6 +31,13 @@
       android:layout_centerHorizontal="true"
       android:layout_centerVertical="true"
       android:id="@+id/progressBar"/>
+  <Button android:layout_width="wrap_content"
+      android:visibility="gone"
+      android:id="@+id/btnretry"
+      android:text="@string/network_error"
+      android:layout_centerHorizontal="true"
+      android:layout_centerVertical="true"
+      android:layout_height="wrap_content"/>
 
   <ListView
       android:layout_width="match_parent"
