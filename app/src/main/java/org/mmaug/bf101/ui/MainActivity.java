@@ -18,7 +18,6 @@ package org.mmaug.bf101.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -26,82 +25,82 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import java.util.ArrayList;
-import java.util.List;
-import org.mmaug.bf101.Config;
+import android.widget.Toast;
+
 import org.mmaug.bf101.R;
 import org.mmaug.bf101.adapter.ShopListAdapter;
-import org.mmaug.bf101.model.ShopClient;
+import org.mmaug.bf101.api.ShopAPI;
+import org.mmaug.bf101.model.Shop;
 import org.mmaug.bf101.utils.NetUtils;
-import retrofit.RestAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class MainActivity extends ActionBarActivity {
-  @InjectView(R.id.listView) ListView shopListView;
-  @InjectView(R.id.progressBar) ProgressBar mProgressBar;
-  @InjectView(R.id.emptyView) View emptyView;
-  @InjectView(R.id.loadingText) TextView loadingText;
-  Activity mActivity;
-  ArrayList<ShopClient.Shop> items;
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-    mActivity = this;
-    ButterKnife.inject(this);
-
-    if (NetUtils.isOnline(getApplicationContext())) {
-      fetchTask fetchTask = new fetchTask();
-      fetchTask.execute();
-    }
-
-    shopListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      @Override
-      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intentToDetail = new Intent(getApplicationContext(), DetailActivity.class);
-        List<String> featureFood = items.get(position).feature_food;
-        intentToDetail.putExtra("shopname", items.get(position).name);
-        intentToDetail.putExtra("shopaddress", items.get(position).address);
-        intentToDetail.putStringArrayListExtra("Feature", (ArrayList<String>) featureFood);
-        startActivity(intentToDetail);
-      }
-    });
-  }
-
-  private class fetchTask extends AsyncTask<String, Void, List<ShopClient.Shop>> {
-    protected void onPreExecute() {
-      // perhaps show a dialog
-      emptyView.setVisibility(View.VISIBLE);
-      mProgressBar.setVisibility(View.VISIBLE);
-      shopListView.setVisibility(View.VISIBLE);
-      loadingText.setVisibility(View.VISIBLE);
-    }
+    @InjectView(R.id.listView)
+    ListView shopListView;
+    @InjectView(R.id.progressBar)
+    ProgressBar mProgressBar;
+    @InjectView(R.id.emptyView)
+    View emptyView;
+    @InjectView(R.id.loadingText)
+    TextView loadingText;
+    Activity mActivity;
+    ArrayList<Shop> items;
 
     @Override
-    protected List<ShopClient.Shop> doInBackground(String... params) {
-      // ToDo Need to catch Connection Problem Exception
-      RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(Config.BASE_URL).build();
-      ShopClient.ShopList shopClient = restAdapter.create(ShopClient.ShopList.class);
-      return shopClient.getAllShop();
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mActivity = this;
+        ButterKnife.inject(this);
 
-    @Override
-    protected void onPostExecute(List<ShopClient.Shop> result) {
-      super.onPostExecute(result);
-      items = new ArrayList<ShopClient.Shop>();
+        if (NetUtils.isOnline(getApplicationContext())) {
+            emptyView.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.VISIBLE);
+            shopListView.setVisibility(View.VISIBLE);
+            loadingText.setVisibility(View.VISIBLE);
 
-      for (ShopClient.Shop t : result) {
-        items.add(t);
-      }
-      mProgressBar.setVisibility(View.GONE);
-      emptyView.setVisibility(View.GONE);
-      loadingText.setVisibility(View.GONE);
-      shopListView.setVisibility(View.VISIBLE);
-      ShopListAdapter itemsAdapter = new ShopListAdapter(mActivity.getApplicationContext(), items);
-      itemsAdapter.notifyDataSetChanged();
-      shopListView.setAdapter(itemsAdapter);
+            ShopAPI.getInstance(this).getService().getAllShop(new Callback<List<Shop>>() {
+                @Override
+                public void success(List<Shop> result, Response response) {
+                    items = new ArrayList<Shop>();
+
+                    for (Shop t : result) {
+                        items.add(t);
+                    }
+                    mProgressBar.setVisibility(View.GONE);
+                    emptyView.setVisibility(View.GONE);
+                    loadingText.setVisibility(View.GONE);
+                    shopListView.setVisibility(View.VISIBLE);
+                    ShopListAdapter itemsAdapter = new ShopListAdapter(getApplicationContext(), items);
+                    itemsAdapter.notifyDataSetChanged();
+                    shopListView.setAdapter(itemsAdapter);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(getApplicationContext(), "Check your internet connection...", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        shopListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intentToDetail = new Intent(getApplicationContext(), DetailActivity.class);
+                List<String> featureFood = items.get(position).feature_food;
+                intentToDetail.putExtra("shopname", items.get(position).name);
+                intentToDetail.putExtra("shopaddress", items.get(position).address);
+                intentToDetail.putStringArrayListExtra("Feature", (ArrayList<String>) featureFood);
+                startActivity(intentToDetail);
+            }
+        });
     }
-  }
 }

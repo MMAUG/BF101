@@ -26,7 +26,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import org.mmaug.bf101.R;
-import org.mmaug.bf101.model.ShopClient;
+import org.mmaug.bf101.model.Shop;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +42,9 @@ import butterknife.InjectView;
 public class ShopListAdapter extends BaseAdapter {
 
     private final Context mContext;
-    private List<ShopClient.Shop> shops;
+    private List<Shop> shops;
 
-    public ShopListAdapter(Context context, ArrayList<ShopClient.Shop> shops) {
+    public ShopListAdapter(Context context, ArrayList<Shop> shops) {
         this.mContext = context;
         this.shops = shops;
     }
@@ -61,13 +61,13 @@ public class ShopListAdapter extends BaseAdapter {
             holder = new ViewHolder(view);
             view.setTag(holder);
         }
-        ShopClient.Shop model = getItem(position);
+        Shop model = getItem(position);
         holder.name.setText(model.name);
         Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/zawgyi.ttf");
         holder.name.setTypeface(font);
         holder.address.setText(model.address);
         holder.address.setTypeface(font);
-        if(model.newshop){
+        if (model.newshop) {
             holder.newshop.setVisibility(View.VISIBLE);
         }
         return view;
@@ -79,7 +79,7 @@ public class ShopListAdapter extends BaseAdapter {
     }
 
     @Override
-    public ShopClient.Shop getItem(int position) {
+    public Shop getItem(int position) {
         return shops.get(position);
     }
 
