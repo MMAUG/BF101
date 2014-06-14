@@ -16,16 +16,17 @@
 
 package org.mmaug.bf101.model;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by yemonkyaw on 6/7/14.
  */
 
-public class Shop {
+public class Shop implements Serializable {
     public String name;
     public String address;
-    public List<String> feature_food;
+    public ArrayList<String> feature_food;
     public Double latitude;
     public Double longitude;
     public Boolean newshop;
