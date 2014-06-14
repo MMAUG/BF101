@@ -43,27 +43,20 @@ public class DetailActivity extends ActionBarActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     getSupportActionBar().setHomeButtonEnabled(true);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     setContentView(R.layout.activity_detail);
-
     ButterKnife.inject(this);
-
     Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/zawgyi.ttf");
-
     shopName = " " + getIntent().getStringExtra("shopname");
     shopAddress = getIntent().getStringExtra("shopaddress");
     shopNameTextView.setText(shopName);
     shopAddressTextView.setText(shopAddress);
     shopNameTextView.setTypeface(font);
     shopAddressTextView.setTypeface(font);
-
     List<String> featureFoodList = getIntent().getStringArrayListExtra("Feature");
     String feature[] = new String[featureFoodList.size()];
     int i = 0;
-
     while (i < featureFoodList.size()) {
       feature[i] = featureFoodList.get(i);
       i++;

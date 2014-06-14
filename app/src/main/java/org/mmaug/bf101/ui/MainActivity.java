@@ -69,8 +69,8 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void success(List<Shop> result, Response response) {
           items = new ArrayList<Shop>();
-          for (Shop t : result) {
-            items.add(t);
+          for (Shop shop : result) {
+            items.add(shop);
           }
           storageUtil.SaveArrayListToSD("shop", items);
           mProgressBar.setVisibility(View.GONE);
