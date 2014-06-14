@@ -26,81 +26,84 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import java.util.ArrayList;
+import java.util.List;
 import org.mmaug.bf101.R;
 import org.mmaug.bf101.adapter.ShopListAdapter;
 import org.mmaug.bf101.api.ShopAPI;
 import org.mmaug.bf101.model.Shop;
 import org.mmaug.bf101.utils.NetUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
+import org.mmaug.bf101.utils.StorageUtil;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class MainActivity extends ActionBarActivity {
-    @InjectView(R.id.listView)
-    ListView shopListView;
-    @InjectView(R.id.progressBar)
-    ProgressBar mProgressBar;
-    @InjectView(R.id.emptyView)
-    View emptyView;
-    @InjectView(R.id.loadingText)
-    TextView loadingText;
-    Activity mActivity;
-    ArrayList<Shop> items;
+  @InjectView(R.id.listView) ListView shopListView;
+  @InjectView(R.id.progressBar) ProgressBar mProgressBar;
+  @InjectView(R.id.emptyView) View emptyView;
+  @InjectView(R.id.loadingText) TextView loadingText;
+  Activity mActivity;
+  ArrayList<Shop> items;
+  StorageUtil storageUtil;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mActivity = this;
-        ButterKnife.inject(this);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    mActivity = this;
+    ButterKnife.inject(this);
+    storageUtil = StorageUtil.getInstance(this);
 
-        if (NetUtils.isOnline(getApplicationContext())) {
-            emptyView.setVisibility(View.VISIBLE);
-            mProgressBar.setVisibility(View.VISIBLE);
-            shopListView.setVisibility(View.VISIBLE);
-            loadingText.setVisibility(View.VISIBLE);
+    if (NetUtils.isOnline(getApplicationContext())) {
+      emptyView.setVisibility(View.VISIBLE);
+      mProgressBar.setVisibility(View.VISIBLE);
+      shopListView.setVisibility(View.VISIBLE);
+      loadingText.setVisibility(View.VISIBLE);
 
-            ShopAPI.getInstance(this).getService().getAllShop(new Callback<List<Shop>>() {
-                @Override
-                public void success(List<Shop> result, Response response) {
-                    items = new ArrayList<Shop>();
-
-                    for (Shop t : result) {
-                        items.add(t);
-                    }
-                    mProgressBar.setVisibility(View.GONE);
-                    emptyView.setVisibility(View.GONE);
-                    loadingText.setVisibility(View.GONE);
-                    shopListView.setVisibility(View.VISIBLE);
-                    ShopListAdapter itemsAdapter = new ShopListAdapter(getApplicationContext(), items);
-                    itemsAdapter.notifyDataSetChanged();
-                    shopListView.setAdapter(itemsAdapter);
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    Toast.makeText(getApplicationContext(), "Check your internet connection...", Toast.LENGTH_SHORT).show();
-                }
-            });
+      ShopAPI.getInstance(this).getService().getAllShop(new Callback<List<Shop>>() {
+        @Override
+        public void success(List<Shop> result, Response response) {
+          items = new ArrayList<Shop>();
+          for (Shop t : result) {
+            items.add(t);
+          }
+          storageUtil.SaveArrayListToSD("shop", items);
+          mProgressBar.setVisibility(View.GONE);
+          emptyView.setVisibility(View.GONE);
+          loadingText.setVisibility(View.GONE);
+          shopListView.setVisibility(View.VISIBLE);
+          ShopListAdapter itemsAdapter = new ShopListAdapter(getApplicationContext(), items);
+          itemsAdapter.notifyDataSetChanged();
+          shopListView.setAdapter(itemsAdapter);
         }
 
-        shopListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intentToDetail = new Intent(getApplicationContext(), DetailActivity.class);
-                List<String> featureFood = items.get(position).feature_food;
-                intentToDetail.putExtra("shopname", items.get(position).name);
-                intentToDetail.putExtra("shopaddress", items.get(position).address);
-                intentToDetail.putStringArrayListExtra("Feature", (ArrayList<String>) featureFood);
-                startActivity(intentToDetail);
-            }
-        });
+        @Override
+        public void failure(RetrofitError error) {
+          Toast.makeText(getApplicationContext(), "Check your internet connection...",
+              Toast.LENGTH_SHORT).show();
+        }
+      });
+    } else {
+      shopListView.setVisibility(View.VISIBLE);
+      items = (ArrayList<Shop>) storageUtil.ReadArrayListFromSD("shop");
+      ShopListAdapter itemsAdapter = new ShopListAdapter(getApplicationContext(), items);
+      itemsAdapter.notifyDataSetChanged();
+      shopListView.setAdapter(itemsAdapter);
     }
+
+    shopListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intentToDetail = new Intent(getApplicationContext(), DetailActivity.class);
+        List<String> featureFood = items.get(position).feature_food;
+        intentToDetail.putExtra("shopname", items.get(position).name);
+        intentToDetail.putExtra("shopaddress", items.get(position).address);
+        intentToDetail.putStringArrayListExtra("Feature", (ArrayList<String>) featureFood);
+        startActivity(intentToDetail);
+      }
+    });
+  }
 }
