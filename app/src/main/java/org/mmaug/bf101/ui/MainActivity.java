@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -34,6 +35,7 @@ import java.util.List;
 import org.mmaug.bf101.R;
 import org.mmaug.bf101.adapter.ShopListAdapter;
 import org.mmaug.bf101.api.ShopAPI;
+import org.mmaug.bf101.model.Location;
 import org.mmaug.bf101.model.Shop;
 import org.mmaug.bf101.utils.NetUtils;
 import org.mmaug.bf101.utils.StorageUtil;
@@ -102,10 +104,10 @@ public class MainActivity extends ActionBarActivity {
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intentToDetail = new Intent(getApplicationContext(), DetailActivity.class);
         List<String> featureFood = items.get(position).feature_food;
-        intentToDetail.putExtra("shopname", items.get(position).name);
+        Log.e("Location",items.get(position).locations.toString());
         intentToDetail.putExtra("shopaddress", items.get(position).address);
         intentToDetail.putStringArrayListExtra("Feature", (ArrayList<String>) featureFood);
-        startActivity(intentToDetail);
+         startActivity(intentToDetail);
       }
     });
   }

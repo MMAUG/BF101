@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2014 MMAUG (Myanmar Android User Group)
  *
@@ -15,12 +14,15 @@
  * limitations under the License.
  */
 
-package org.mmaug.bf101;
+package org.mmaug.bf101.model;
+
+import java.io.Serializable;
 
 /**
- * Created by Ye Lin Aung on 14/06/07.
+ * Created by yemonkyaw on 6/15/14.
  */
-public class Config {
-  public static final String BASE_URL = "https://raw.githubusercontent.com/MMAUG/BF101-API/master/json";
-  public static final String SHOP_URL = "/staging_shops.json";
+public class Location implements Serializable{
+  public String branch;
+  public Double lat;
+  public Double lng;
 }

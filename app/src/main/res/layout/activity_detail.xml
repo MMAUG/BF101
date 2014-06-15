@@ -15,6 +15,7 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,17 +26,14 @@
     tools:context="org.mmaug.bf101.ui.DetailActivity">
 
   <com.google.android.gms.maps.MapView
-      android:id="@+id/mapview"
+      xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="match_parent"
       android:layout_height="200dp"
-      android:layout_marginBottom="25dp"
-      android:layout_marginLeft="15dp"
-      android:layout_marginRight="15dp">
-  </com.google.android.gms.maps.MapView>
-
+      android:layout_marginBottom="10dp"
+      android:id="@+id/mapView" />
   <TextView
+      android:layout_below="@+id/mapView"
       android:id="@+id/headerText"
-      android:layout_below="@id/mapview"
       android:drawableLeft="@drawable/shop"
       android:gravity="center_vertical"
       android:paddingBottom="10dp"
