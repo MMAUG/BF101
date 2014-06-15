@@ -19,7 +19,6 @@ package org.mmaug.bf101.ui;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +43,7 @@ public class DetailActivity extends ActionBarActivity {
 
   @InjectView(R.id.list) ListView featureListView;
   @InjectView(R.id.headerText) TextView shopNameTextView;
+  @InjectView(R.id.action_bar) TextView actionBar;
   @InjectView(R.id.Shop_Address) TextView shopAddressTextView;
 
   String shopName;
@@ -54,6 +54,8 @@ public class DetailActivity extends ActionBarActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     getSupportActionBar().setHomeButtonEnabled(true);
+    getSupportActionBar().setDisplayShowCustomEnabled(true);
+    getSupportActionBar().setCustomView(R.layout.actionbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     setContentView(R.layout.activity_detail);
     ButterKnife.inject(this);
@@ -64,7 +66,7 @@ public class DetailActivity extends ActionBarActivity {
       map.onResume();
       final LatLng yangon = new LatLng(16.774745, 96.150649);
       map.getMap().getUiSettings().setMyLocationButtonEnabled(false);
-      map.getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(yangon, 15));
+      map.getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(yangon, 10));
       map.getMap().setMyLocationEnabled(true);
     } catch (GooglePlayServicesNotAvailableException e) {
     }
@@ -74,14 +76,18 @@ public class DetailActivity extends ActionBarActivity {
     shopNameTextView.setText(shopName);
     shopAddressTextView.setText(shopAddress);
     shopNameTextView.setTypeface(font);
+    actionBar.setText(shopName);
+    actionBar.setTypeface(font);
     IconGenerator iconFactory = new IconGenerator(this);
-    iconFactory.setStyle(IconGenerator.STYLE_BLUE);
+    iconFactory.setStyle(IconGenerator.STYLE_GREEN);
     Bundle b = this.getIntent().getExtras();
     String[] latArray = b.getStringArray("lat");
     String[] lngArray = b.getStringArray("lng");
     String[] branchArray = b.getStringArray("branch");
-    for(int count =0; count < latArray.length;count++){
-      addIcon(iconFactory,branchArray[count],new LatLng(Double.parseDouble(latArray[count]),Double.parseDouble(lngArray[count])),"id");
+    for (int count = 0; count < latArray.length; count++) {
+      addIcon(iconFactory, branchArray[count],
+          new LatLng(Double.parseDouble(latArray[count]), Double.parseDouble(lngArray[count])),
+          "id");
     }
 
     shopAddressTextView.setTypeface(font);
@@ -107,7 +113,7 @@ public class DetailActivity extends ActionBarActivity {
         position(position).
         snippet(id).
         anchor(iconFactory.getAnchorU(), iconFactory.getAnchorV());
-        map.getMap().addMarker(markerOptions);
+    map.getMap().addMarker(markerOptions);
   }
 
   @Override
