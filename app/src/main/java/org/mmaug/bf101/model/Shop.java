@@ -27,6 +27,6 @@ public class Shop implements Serializable {
     public String name;
     public String address;
     public ArrayList<String> feature_food;
-    public ArrayList<Location> locations;
+  public ArrayList<Location> locations;
     public Boolean newshop;
 }

@@ -35,7 +35,6 @@ import java.util.List;
 import org.mmaug.bf101.R;
 import org.mmaug.bf101.adapter.ShopListAdapter;
 import org.mmaug.bf101.api.ShopAPI;
-import org.mmaug.bf101.model.Location;
 import org.mmaug.bf101.model.Shop;
 import org.mmaug.bf101.utils.NetUtils;
 import org.mmaug.bf101.utils.StorageUtil;
@@ -104,10 +103,23 @@ public class MainActivity extends ActionBarActivity {
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intentToDetail = new Intent(getApplicationContext(), DetailActivity.class);
         List<String> featureFood = items.get(position).feature_food;
-        Log.e("Location",items.get(position).locations.toString());
+        String[]branch = new String[items.get(position).locations.size()];
+        String[]lat = new String[items.get(position).locations.size()];
+        String[]lng = new String[items.get(position).locations.size()];
+       for (int count = 0; count < items.get(position).locations.size(); count++) {
+         branch[count] = items.get(position).locations.get(count).branch;
+         lat[count] =items.get(position).locations.get(count).lat.toString();
+         lng[count]= items.get(position).locations.get(count).lng.toString();
+        }
+        intentToDetail.putExtra("shopname", items.get(position).name);
+        Bundle b = new Bundle();
+        b.putStringArray("branch",branch);
+        b.putStringArray("lat", lat);
+        b.putStringArray("lng",lng);
+        intentToDetail.putExtras(b);
         intentToDetail.putExtra("shopaddress", items.get(position).address);
         intentToDetail.putStringArrayListExtra("Feature", (ArrayList<String>) featureFood);
-         startActivity(intentToDetail);
+        startActivity(intentToDetail);
       }
     });
   }

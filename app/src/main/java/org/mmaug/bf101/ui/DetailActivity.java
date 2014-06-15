@@ -19,6 +19,7 @@ package org.mmaug.bf101.ui;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +32,10 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.ui.IconGenerator;
 import java.util.List;
 import org.mmaug.bf101.R;
 import org.mmaug.bf101.adapter.FeatureFoodListAdapter;
@@ -70,6 +74,16 @@ public class DetailActivity extends ActionBarActivity {
     shopNameTextView.setText(shopName);
     shopAddressTextView.setText(shopAddress);
     shopNameTextView.setTypeface(font);
+    IconGenerator iconFactory = new IconGenerator(this);
+    iconFactory.setStyle(IconGenerator.STYLE_BLUE);
+    Bundle b = this.getIntent().getExtras();
+    String[] latArray = b.getStringArray("lat");
+    String[] lngArray = b.getStringArray("lng");
+    String[] branchArray = b.getStringArray("branch");
+    for(int count =0; count < latArray.length;count++){
+      addIcon(iconFactory,branchArray[count],new LatLng(Double.parseDouble(latArray[count]),Double.parseDouble(lngArray[count])),"id");
+    }
+
     shopAddressTextView.setTypeface(font);
     List<String> featureFoodList = getIntent().getStringArrayListExtra("Feature");
     String feature[] = new String[featureFoodList.size()];
@@ -84,6 +98,16 @@ public class DetailActivity extends ActionBarActivity {
     FeatureFoodListAdapter featureFoodListAdapter = new FeatureFoodListAdapter(this, feature);
     featureListView.addHeaderView(headerView);
     featureListView.setAdapter(featureFoodListAdapter);
+  }
+
+  private void addIcon(IconGenerator iconFactory, String text, LatLng position, String id) {
+
+    MarkerOptions markerOptions = new MarkerOptions().
+        icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(text))).
+        position(position).
+        snippet(id).
+        anchor(iconFactory.getAnchorU(), iconFactory.getAnchorV());
+        map.getMap().addMarker(markerOptions);
   }
 
   @Override

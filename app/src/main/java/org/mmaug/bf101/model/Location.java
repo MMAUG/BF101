@@ -17,6 +17,7 @@
 package org.mmaug.bf101.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by yemonkyaw on 6/15/14.
