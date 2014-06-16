@@ -49,6 +49,7 @@ public class DetailActivity extends ActionBarActivity {
   String shopName;
   String shopAddress;
   MapView map;
+  Typeface font;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +69,9 @@ public class DetailActivity extends ActionBarActivity {
       map.getMap().getUiSettings().setMyLocationButtonEnabled(false);
       map.getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(yangon, 10));
       map.getMap().setMyLocationEnabled(true);
-    } catch (GooglePlayServicesNotAvailableException e) {
+    } catch (GooglePlayServicesNotAvailableException ignored) {
     }
-    Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/zawgyi.ttf");
+    font = Typeface.createFromAsset(this.getAssets(), "fonts/zawgyi.ttf");
     shopName = " " + getIntent().getStringExtra("shopname");
     shopAddress = getIntent().getStringExtra("shopaddress");
     shopNameTextView.setText(shopName);
@@ -107,9 +108,14 @@ public class DetailActivity extends ActionBarActivity {
   }
 
   private void addIcon(IconGenerator iconFactory, String text, LatLng position, String id) {
+    TextView mmTextMapView = new TextView(this);
+    mmTextMapView.setTypeface(font);
+    mmTextMapView.setText(text);
+    iconFactory.setContentView(mmTextMapView);
 
     MarkerOptions markerOptions = new MarkerOptions().
-        icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(text))).
+        icon(BitmapDescriptorFactory.fromBitmap(
+            iconFactory.makeIcon(mmTextMapView.getText().toString()))).
         position(position).
         snippet(id).
         anchor(iconFactory.getAnchorU(), iconFactory.getAnchorV());
