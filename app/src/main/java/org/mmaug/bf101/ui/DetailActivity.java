@@ -112,9 +112,11 @@ public class DetailActivity extends ActionBarActivity {
   private void addIcon(IconGenerator iconFactory, String text, LatLng position, String id) {
     TextView mmTextMapView = new TextView(this);
     mmTextMapView.setTypeface(font);
-    mmTextMapView.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
-    mmTextMapView.setWidth(200);
-    mmTextMapView.setHeight(50);
+    ViewGroup.LayoutParams layoutParams =
+        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT);
+    mmTextMapView.setLayoutParams(layoutParams);
+    mmTextMapView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
     mmTextMapView.setTextColor(getResources().getColor(R.color.text_color));
     mmTextMapView.setText(text);
     iconFactory.setContentView(mmTextMapView);
