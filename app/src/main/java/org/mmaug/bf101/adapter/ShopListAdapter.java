@@ -62,7 +62,6 @@ public class ShopListAdapter extends BaseAdapter {
     Shop model = getItem(position);
     holder.name.setText(model.name);
     int padding = (int) mContext.getResources().getDimension(R.dimen.featured);
-    holder.featuredHeader.setPadding(padding, padding, padding, padding);
     Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/zawgyi.ttf");
     holder.name.setTypeface(font);
     holder.address.setText(model.address);
@@ -92,7 +91,6 @@ public class ShopListAdapter extends BaseAdapter {
     @InjectView(R.id.shop_name) TextView name;
     @InjectView(R.id.shop_address) TextView address;
     @InjectView(R.id.new_shop) TextView newshop;
-    @InjectView(R.id.FeaturedHeader) ImageView featuredHeader;
 
     public ViewHolder(View view) {
       ButterKnife.inject(this, view);
