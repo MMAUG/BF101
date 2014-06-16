@@ -19,10 +19,12 @@ package org.mmaug.bf101.ui;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
@@ -80,7 +82,7 @@ public class DetailActivity extends ActionBarActivity {
     actionBar.setText(shopName);
     actionBar.setTypeface(font);
     IconGenerator iconFactory = new IconGenerator(this);
-    iconFactory.setStyle(IconGenerator.STYLE_GREEN);
+    iconFactory.setStyle(IconGenerator.STYLE_WHITE);
     Bundle b = this.getIntent().getExtras();
     String[] latArray = b.getStringArray("lat");
     String[] lngArray = b.getStringArray("lng");
@@ -110,6 +112,10 @@ public class DetailActivity extends ActionBarActivity {
   private void addIcon(IconGenerator iconFactory, String text, LatLng position, String id) {
     TextView mmTextMapView = new TextView(this);
     mmTextMapView.setTypeface(font);
+    mmTextMapView.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
+    mmTextMapView.setWidth(200);
+    mmTextMapView.setHeight(50);
+    mmTextMapView.setTextColor(getResources().getColor(R.color.text_color));
     mmTextMapView.setText(text);
     iconFactory.setContentView(mmTextMapView);
 
