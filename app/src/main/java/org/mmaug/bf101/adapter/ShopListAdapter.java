@@ -23,16 +23,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.mmaug.bf101.R;
-import org.mmaug.bf101.model.Shop;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import java.util.ArrayList;
+import java.util.List;
+import org.mmaug.bf101.R;
+import org.mmaug.bf101.model.Shop;
 
 /**
  * This file is created by Nyan Lynn Htut
@@ -41,63 +39,63 @@ import butterknife.InjectView;
 
 public class ShopListAdapter extends BaseAdapter {
 
-    private final Context mContext;
-    private List<Shop> shops;
+  private final Context mContext;
+  private List<Shop> shops;
 
-    public ShopListAdapter(Context context, ArrayList<Shop> shops) {
-        this.mContext = context;
-        this.shops = shops;
+  public ShopListAdapter(Context context, ArrayList<Shop> shops) {
+    this.mContext = context;
+    this.shops = shops;
+  }
+
+  @Override
+  public View getView(int position, View view, ViewGroup parent) {
+    ViewHolder holder;
+    LayoutInflater mInflater =
+        (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+    if (view != null) {
+      holder = (ViewHolder) view.getTag();
+    } else {
+      view = mInflater.inflate(R.layout.shop_list_item, parent, false);
+      holder = new ViewHolder(view);
+      view.setTag(holder);
     }
-
-    @Override
-    public View getView(int position, View view, ViewGroup parent) {
-        ViewHolder holder;
-        LayoutInflater mInflater =
-                (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        if (view != null) {
-            holder = (ViewHolder) view.getTag();
-        } else {
-            view = mInflater.inflate(R.layout.shop_list_item, parent, false);
-            holder = new ViewHolder(view);
-            view.setTag(holder);
-        }
-        Shop model = getItem(position);
-        holder.name.setText(model.name);
-        Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/zawgyi.ttf");
-        holder.name.setTypeface(font);
-        holder.address.setText(model.address);
-        holder.address.setTypeface(font);
-        if (model.newshop) {
-            holder.newshop.setVisibility(View.VISIBLE);
-        }
-        return view;
+    Shop model = getItem(position);
+    holder.name.setText(model.name);
+    int padding = (int) mContext.getResources().getDimension(R.dimen.featured);
+    holder.featuredHeader.setPadding(padding, padding, padding, padding);
+    Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/zawgyi.ttf");
+    holder.name.setTypeface(font);
+    holder.address.setText(model.address);
+    holder.address.setTypeface(font);
+    if (model.newshop) {
+      holder.newshop.setVisibility(View.VISIBLE);
     }
+    return view;
+  }
 
-    @Override
-    public int getCount() {
-        return shops.size();
+  @Override
+  public int getCount() {
+    return shops.size();
+  }
+
+  @Override
+  public Shop getItem(int position) {
+    return shops.get(position);
+  }
+
+  @Override
+  public long getItemId(int position) {
+    return position;
+  }
+
+  static class ViewHolder {
+    @InjectView(R.id.shop_name) TextView name;
+    @InjectView(R.id.shop_address) TextView address;
+    @InjectView(R.id.new_shop) TextView newshop;
+    @InjectView(R.id.FeaturedHeader) ImageView featuredHeader;
+
+    public ViewHolder(View view) {
+      ButterKnife.inject(this, view);
     }
-
-    @Override
-    public Shop getItem(int position) {
-        return shops.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    static class ViewHolder {
-        @InjectView(R.id.shop_name)
-        TextView name;
-        @InjectView(R.id.shop_address)
-        TextView address;
-        @InjectView(R.id.new_shop)
-        TextView newshop;
-
-        public ViewHolder(View view) {
-            ButterKnife.inject(this, view);
-        }
-    }
+  }
 }

@@ -5,4 +5,5 @@
 
     <dimen name="list_view_horizontal_padding">16dp</dimen>
     <dimen name="list_view_vertical_padding">16dp</dimen>
+    <dimen name="featured">5dp</dimen>
 </resources>

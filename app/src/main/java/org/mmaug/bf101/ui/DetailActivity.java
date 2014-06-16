@@ -87,6 +87,7 @@ public class DetailActivity extends ActionBarActivity {
     String[] latArray = b.getStringArray("lat");
     String[] lngArray = b.getStringArray("lng");
     String[] branchArray = b.getStringArray("branch");
+    //for generating marker
     for (int count = 0; count < latArray.length; count++) {
       addIcon(iconFactory, branchArray[count],
           new LatLng(Double.parseDouble(latArray[count]), Double.parseDouble(lngArray[count])),
