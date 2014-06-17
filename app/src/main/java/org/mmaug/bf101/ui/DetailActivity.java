@@ -29,7 +29,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
@@ -62,17 +61,14 @@ public class DetailActivity extends ActionBarActivity {
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     setContentView(R.layout.activity_detail);
     ButterKnife.inject(this);
-    try {
-      MapsInitializer.initialize(this);
-      map = (MapView) findViewById(R.id.mapView);
-      map.onCreate(savedInstanceState);
-      map.onResume();
-      final LatLng yangon = new LatLng(16.774745, 96.150649);
-      map.getMap().getUiSettings().setMyLocationButtonEnabled(false);
-      map.getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(yangon, 10));
-      map.getMap().setMyLocationEnabled(true);
-    } catch (GooglePlayServicesNotAvailableException ignored) {
-    }
+    MapsInitializer.initialize(this);
+    map = (MapView) findViewById(R.id.mapView);
+    map.onCreate(savedInstanceState);
+    map.onResume();
+    final LatLng yangon = new LatLng(16.774745, 96.150649);
+    map.getMap().getUiSettings().setMyLocationButtonEnabled(false);
+    map.getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(yangon, 10));
+    map.getMap().setMyLocationEnabled(true);
     font = Typeface.createFromAsset(this.getAssets(), "fonts/zawgyi.ttf");
     shopName = " " + getIntent().getStringExtra("shopname");
     shopAddress = getIntent().getStringExtra("shopaddress");
