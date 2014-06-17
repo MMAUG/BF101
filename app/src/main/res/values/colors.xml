@@ -7,4 +7,6 @@
     <!-- The two color below show when the item is pressed, you should change that to the color you want. -->
     <drawable name="listitem_pressed">#ccc</drawable>
     <drawable name="listitem_selected">#ccc</drawable>
+
+    <color name="transparent_refresh_bg">#20aaaaaa</color>
 </resources>
