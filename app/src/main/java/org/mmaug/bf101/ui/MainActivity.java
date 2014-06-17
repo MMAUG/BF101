@@ -113,6 +113,7 @@ public class MainActivity extends ActionBarActivity {
       mProgressBar.setVisibility(View.VISIBLE);
       shopListView.setVisibility(View.GONE);
       loadingText.setVisibility(View.VISIBLE);
+      actionRefresh.setVisibility(View.GONE);
 
       ShopAPI.getInstance(this).getService().getAllShop(new Callback<List<Shop>>() {
         @Override
