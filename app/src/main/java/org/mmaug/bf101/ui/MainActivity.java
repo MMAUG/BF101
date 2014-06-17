@@ -38,6 +38,7 @@ import org.mmaug.bf101.adapter.ShopListAdapter;
 import org.mmaug.bf101.api.ShopAPI;
 import org.mmaug.bf101.model.Shop;
 import org.mmaug.bf101.utils.NetUtils;
+import org.mmaug.bf101.utils.SharePrefUtils;
 import org.mmaug.bf101.utils.StorageUtil;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -49,9 +50,10 @@ public class MainActivity extends ActionBarActivity {
   @InjectView(R.id.emptyView) View emptyView;
   @InjectView(R.id.loadingText) TextView loadingText;
   @InjectView(R.id.btnretry) Button retry;
-  Activity mActivity;
-  ArrayList<Shop> items;
-  StorageUtil storageUtil;
+  private Activity mActivity;
+  private ArrayList<Shop> items;
+  private StorageUtil storageUtil;
+  private SharePrefUtils sharePrefUtils;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class MainActivity extends ActionBarActivity {
     mActivity = this;
     ButterKnife.inject(this);
     storageUtil = StorageUtil.getInstance(this);
+    sharePrefUtils = SharePrefUtils.getInstance(this);
 
     shopListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
@@ -89,7 +92,10 @@ public class MainActivity extends ActionBarActivity {
 
   @Override protected void onResume() {
     super.onResume();
-    loadData();
+    if (sharePrefUtils.isFirstTime()) {
+      loadData();
+      sharePrefUtils.noMoreFirstTime();
+    }
   }
 
   private void loadData() {
