@@ -9,15 +9,16 @@
     tools:context="org.mmaug.bf101.ui.MainActivity">
 
   <LinearLayout
+      android:id="@+id/action_refresh"
       android:background="@color/transparent_refresh_bg"
       android:visibility="gone"
+      android:layout_marginBottom="3dp"
       android:orientation="horizontal"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
     <TextView
         android:layout_weight="1"
         style="@android:style/TextAppearance.Small"
-        android:padding="10dp"
         android:text="@string/out_of_date_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -63,6 +64,7 @@
       android:layout_height="wrap_content"/>
 
   <ListView
+      android:layout_below="@+id/action_refresh"
       android:layout_width="match_parent"
       android:visibility="gone"
       android:layout_height="match_parent"

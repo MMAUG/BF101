@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -50,6 +51,7 @@ public class MainActivity extends ActionBarActivity {
   @InjectView(R.id.emptyView) View emptyView;
   @InjectView(R.id.loadingText) TextView loadingText;
   @InjectView(R.id.btnretry) Button retry;
+  @InjectView(R.id.action_refresh) LinearLayout actionRefresh;
   private Activity mActivity;
   private ArrayList<Shop> items;
   private StorageUtil storageUtil;
@@ -95,6 +97,13 @@ public class MainActivity extends ActionBarActivity {
     if (sharePrefUtils.isFirstTime()) {
       loadData();
       sharePrefUtils.noMoreFirstTime();
+    } else {
+      shopListView.setVisibility(View.VISIBLE);
+      actionRefresh.setVisibility(View.VISIBLE);
+      items = (ArrayList<Shop>) storageUtil.ReadArrayListFromSD("shop");
+      ShopListAdapter itemsAdapter = new ShopListAdapter(getApplicationContext(), items);
+      itemsAdapter.notifyDataSetChanged();
+      shopListView.setAdapter(itemsAdapter);
     }
   }
 
@@ -129,12 +138,6 @@ public class MainActivity extends ActionBarActivity {
           retry.setVisibility(View.VISIBLE);
         }
       });
-    } else {
-      shopListView.setVisibility(View.VISIBLE);
-      items = (ArrayList<Shop>) storageUtil.ReadArrayListFromSD("shop");
-      ShopListAdapter itemsAdapter = new ShopListAdapter(getApplicationContext(), items);
-      itemsAdapter.notifyDataSetChanged();
-      shopListView.setAdapter(itemsAdapter);
     }
   }
 
