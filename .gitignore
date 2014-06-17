@@ -19,7 +19,7 @@ gen/
 # Gradle files
 .gradle/
 build/
-app/src/main/res/values/google_maps.xml
+# app/src/main/res/values/google_maps.xml
 
 # Local configuration file (sdk path, etc)
 local.properties
