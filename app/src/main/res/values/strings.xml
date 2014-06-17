@@ -24,4 +24,6 @@
   <string name="title_activity_detail">DetailActivity</string>
   <string name="network_error">Retry</string>
   <string name="cap_new">NEW</string>
+
+  <string name="refresh">Refresh</string>
 </resources>

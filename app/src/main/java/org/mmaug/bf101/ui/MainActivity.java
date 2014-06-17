@@ -20,7 +20,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -60,10 +61,42 @@ public class MainActivity extends ActionBarActivity {
     ButterKnife.inject(this);
     storageUtil = StorageUtil.getInstance(this);
 
+    shopListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intentToDetail = new Intent(getApplicationContext(), DetailActivity.class);
+        List<String> featureFood = items.get(position).feature_food;
+        String[] branch = new String[items.get(position).locations.size()];
+        String[] lat = new String[items.get(position).locations.size()];
+        String[] lng = new String[items.get(position).locations.size()];
+        for (int count = 0; count < items.get(position).locations.size(); count++) {
+          branch[count] = items.get(position).locations.get(count).branch;
+          lat[count] = items.get(position).locations.get(count).lat.toString();
+          lng[count] = items.get(position).locations.get(count).lng.toString();
+        }
+        intentToDetail.putExtra("shopname", items.get(position).name);
+        Bundle b = new Bundle();
+        b.putStringArray("branch", branch);
+        b.putStringArray("lat", lat);
+        b.putStringArray("lng", lng);
+        intentToDetail.putExtras(b);
+        intentToDetail.putExtra("shopaddress", items.get(position).address);
+        intentToDetail.putStringArrayListExtra("Feature", (ArrayList<String>) featureFood);
+        startActivity(intentToDetail);
+      }
+    });
+  }
+
+  @Override protected void onResume() {
+    super.onResume();
+    loadData();
+  }
+
+  private void loadData() {
     if (NetUtils.isOnline(getApplicationContext())) {
       emptyView.setVisibility(View.VISIBLE);
       mProgressBar.setVisibility(View.VISIBLE);
-      shopListView.setVisibility(View.VISIBLE);
+      shopListView.setVisibility(View.GONE);
       loadingText.setVisibility(View.VISIBLE);
 
       ShopAPI.getInstance(this).getService().getAllShop(new Callback<List<Shop>>() {
@@ -97,30 +130,24 @@ public class MainActivity extends ActionBarActivity {
       itemsAdapter.notifyDataSetChanged();
       shopListView.setAdapter(itemsAdapter);
     }
+  }
 
-    shopListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      @Override
-      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intentToDetail = new Intent(getApplicationContext(), DetailActivity.class);
-        List<String> featureFood = items.get(position).feature_food;
-        String[]branch = new String[items.get(position).locations.size()];
-        String[]lat = new String[items.get(position).locations.size()];
-        String[]lng = new String[items.get(position).locations.size()];
-       for (int count = 0; count < items.get(position).locations.size(); count++) {
-         branch[count] = items.get(position).locations.get(count).branch;
-         lat[count] =items.get(position).locations.get(count).lat.toString();
-         lng[count]= items.get(position).locations.get(count).lng.toString();
-        }
-        intentToDetail.putExtra("shopname", items.get(position).name);
-        Bundle b = new Bundle();
-        b.putStringArray("branch",branch);
-        b.putStringArray("lat", lat);
-        b.putStringArray("lng",lng);
-        intentToDetail.putExtras(b);
-        intentToDetail.putExtra("shopaddress", items.get(position).address);
-        intentToDetail.putStringArrayListExtra("Feature", (ArrayList<String>) featureFood);
-        startActivity(intentToDetail);
-      }
-    });
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.main, menu);
+    return true;
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
+    int id = item.getItemId();
+    switch (id) {
+      case R.id.action_refresh:
+        loadData();
+        break;
+    }
+    return super.onOptionsItemSelected(item);
   }
 }
