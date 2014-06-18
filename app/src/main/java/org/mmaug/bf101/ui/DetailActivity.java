@@ -16,7 +16,9 @@
 
 package org.mmaug.bf101.ui;
 
+import android.content.Context;
 import android.graphics.Typeface;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
@@ -46,6 +48,7 @@ public class DetailActivity extends ActionBarActivity {
   @InjectView(R.id.headerText) TextView shopNameTextView;
   @InjectView(R.id.action_bar) TextView actionBar;
   @InjectView(R.id.Shop_Address) TextView shopAddressTextView;
+  @InjectView(R.id.distanceLocation) TextView distancLocation;
 
   String shopName;
   String shopAddress;
@@ -84,12 +87,27 @@ public class DetailActivity extends ActionBarActivity {
     String[] lngArray = b.getStringArray("lng");
     String[] branchArray = b.getStringArray("branch");
     //for generating marker
+    //To Get User Current Location from GPS
+    LocationManager locationManager =
+        (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+    double lat =
+        locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER).getLatitude();
+    double lng =
+        locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER).getLongitude();
+    android.location.Location location = new android.location.Location("current");
+    location.setLatitude(lat);
+    location.setLongitude(lng);
+    Double[] distance = new Double[latArray.length];
     for (int count = 0; count < latArray.length; count++) {
       addIcon(iconFactory, branchArray[count],
           new LatLng(Double.parseDouble(latArray[count]), Double.parseDouble(lngArray[count])),
           "id");
+      android.location.Location locationShop = new android.location.Location("current");
+      locationShop.setLatitude(Double.parseDouble(latArray[count]));
+      locationShop.setLongitude(Double.parseDouble(lngArray[count]));
+      distance[count] = Double.valueOf(location.distanceTo(locationShop));
     }
-
+    //TO DO we need to show distance from user current location and convert to Kilo Meter
     shopAddressTextView.setTypeface(font);
     List<String> featureFoodList = getIntent().getStringArrayListExtra("Feature");
     String feature[] = new String[featureFoodList.size()];

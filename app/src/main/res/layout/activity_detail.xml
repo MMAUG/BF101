@@ -32,6 +32,11 @@
       android:layout_marginBottom="10dp"
       android:id="@+id/mapView" />
   <TextView
+      android:textColor="@color/list_item_divider"
+      android:id="@+id/distanceLocation"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+  <TextView
       android:layout_below="@+id/mapView"
       android:id="@+id/headerText"
       android:drawableLeft="@drawable/shop"
