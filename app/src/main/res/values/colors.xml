@@ -8,5 +8,5 @@
     <drawable name="listitem_pressed">#ccc</drawable>
     <drawable name="listitem_selected">#ccc</drawable>
 
-    <color name="transparent_refresh_bg">#20aaaaaa</color>
+    <color name="transparent_refresh_bg">#80212121</color>
 </resources>

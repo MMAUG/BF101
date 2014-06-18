@@ -15,7 +15,8 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="@android:integer/config_mediumAnimTime">
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:exitFadeDuration="@android:integer/config_mediumAnimTime">
 
     <item android:drawable="@drawable/listitem_selected" android:state_focused="true" android:state_pressed="false"/>
     <item android:drawable="@drawable/listitem_pressed" android:state_pressed="true"/>

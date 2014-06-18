@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import java.util.ArrayList;
 import java.util.List;
 import org.mmaug.bf101.R;
@@ -51,7 +52,8 @@ public class MainActivity extends ActionBarActivity {
   @InjectView(R.id.emptyView) View emptyView;
   @InjectView(R.id.loadingText) TextView loadingText;
   @InjectView(R.id.btnretry) Button retry;
-  @InjectView(R.id.action_refresh) LinearLayout actionRefresh;
+  @InjectView(R.id.refresh_bar) LinearLayout refreshBarView;
+
   private Activity mActivity;
   private ArrayList<Shop> items;
   private StorageUtil storageUtil;
@@ -94,17 +96,26 @@ public class MainActivity extends ActionBarActivity {
 
   @Override protected void onResume() {
     super.onResume();
+
+    refreshBarView.setVisibility(View.VISIBLE);
+
     if (sharePrefUtils.isFirstTime()) {
       loadData();
       sharePrefUtils.noMoreFirstTime();
     } else {
       shopListView.setVisibility(View.VISIBLE);
-      actionRefresh.setVisibility(View.VISIBLE);
+      refreshBarView.setVisibility(View.VISIBLE);
       items = (ArrayList<Shop>) storageUtil.ReadArrayListFromSD("shop");
       ShopListAdapter itemsAdapter = new ShopListAdapter(getApplicationContext(), items);
       itemsAdapter.notifyDataSetChanged();
       shopListView.setAdapter(itemsAdapter);
     }
+  }
+
+  @OnClick(R.id.refresh)
+  void refresh() {
+    loadData();
+    refreshBarView.setVisibility(View.GONE);
   }
 
   private void loadData() {
@@ -113,7 +124,7 @@ public class MainActivity extends ActionBarActivity {
       mProgressBar.setVisibility(View.VISIBLE);
       shopListView.setVisibility(View.GONE);
       loadingText.setVisibility(View.VISIBLE);
-      actionRefresh.setVisibility(View.GONE);
+      refreshBarView.setVisibility(View.GONE);
 
       ShopAPI.getInstance(this).getService().getAllShop(new Callback<List<Shop>>() {
         @Override
