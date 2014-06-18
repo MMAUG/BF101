@@ -16,7 +16,6 @@
 
 package org.mmaug.bf101.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -54,7 +53,6 @@ public class MainActivity extends ActionBarActivity {
   @InjectView(R.id.btnretry) Button retry;
   @InjectView(R.id.refresh_bar) LinearLayout refreshBarView;
 
-  private Activity mActivity;
   private ArrayList<Shop> items;
   private StorageUtil storageUtil;
   private SharePrefUtils sharePrefUtils;
@@ -63,7 +61,6 @@ public class MainActivity extends ActionBarActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    mActivity = this;
     ButterKnife.inject(this);
     storageUtil = StorageUtil.getInstance(this);
     sharePrefUtils = SharePrefUtils.getInstance(this);
@@ -112,8 +109,7 @@ public class MainActivity extends ActionBarActivity {
     }
   }
 
-  @OnClick(R.id.refresh)
-  void refresh() {
+  @OnClick(R.id.refresh) void refresh() {
     loadData();
     refreshBarView.setVisibility(View.GONE);
   }
