@@ -98,7 +98,7 @@ public class DetailActivity extends ActionBarActivity {
     String[] branchArray = b.getStringArray("branch");
 
     //for generating marker
-    //To Get User Current Location from GPS
+    //To Get User Current Location from Wifi
     LocationManager locationManager =
         (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
     double lat =
@@ -113,8 +113,7 @@ public class DetailActivity extends ActionBarActivity {
 
     for (int count = 0; count < latArray.length; count++) {
       addIcon(iconFactory, branchArray[count],
-          new LatLng(Double.parseDouble(latArray[count]), Double.parseDouble(lngArray[count])),
-          "id");
+          new LatLng(Double.parseDouble(latArray[count]), Double.parseDouble(lngArray[count])));
 
       android.location.Location locationShop = new android.location.Location("current");
       locationShop.setLatitude(Double.parseDouble(latArray[count]));
@@ -140,7 +139,7 @@ public class DetailActivity extends ActionBarActivity {
     featureListView.setAdapter(featureFoodListAdapter);
   }
 
-  private void addIcon(IconGenerator iconFactory, String text, LatLng position, String id) {
+  private void addIcon(IconGenerator iconFactory, String text, LatLng position) {
     TextView mmTextMapView = new TextView(this);
     mmTextMapView.setTypeface(font);
     ViewGroup.LayoutParams layoutParams =
@@ -156,7 +155,6 @@ public class DetailActivity extends ActionBarActivity {
         icon(BitmapDescriptorFactory.fromBitmap(
             iconFactory.makeIcon(mmTextMapView.getText().toString()))).
         position(position).
-        snippet(id).
         anchor(iconFactory.getAnchorU(), iconFactory.getAnchorV());
     map.getMap().addMarker(markerOptions);
   }
