@@ -73,18 +73,20 @@ public class MainActivity extends ActionBarActivity {
         String[] branch = new String[items.get(position).locations.size()];
         String[] lat = new String[items.get(position).locations.size()];
         String[] lng = new String[items.get(position).locations.size()];
+
         for (int count = 0; count < items.get(position).locations.size(); count++) {
           branch[count] = items.get(position).locations.get(count).branch;
           lat[count] = items.get(position).locations.get(count).lat.toString();
           lng[count] = items.get(position).locations.get(count).lng.toString();
         }
-        intentToDetail.putExtra("shopname", items.get(position).name);
+
+        intentToDetail.putExtra(getString(R.string.extra_shopname), items.get(position).name);
         Bundle b = new Bundle();
         b.putStringArray("branch", branch);
         b.putStringArray("lat", lat);
         b.putStringArray("lng", lng);
         intentToDetail.putExtras(b);
-        intentToDetail.putExtra("shopaddress", items.get(position).address);
+        intentToDetail.putExtra(getString(R.string.extra_shopaddress), items.get(position).address);
         intentToDetail.putStringArrayListExtra("Feature", (ArrayList<String>) featureFood);
         startActivity(intentToDetail);
       }

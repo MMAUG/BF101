@@ -80,8 +80,8 @@ public class DetailActivity extends ActionBarActivity {
 
     font = Typeface.createFromAsset(this.getAssets(), "fonts/zawgyi.ttf");
 
-    String shopName = " " + getIntent().getStringExtra("shopname");
-    String shopAddress = getIntent().getStringExtra("shopaddress");
+    String shopName = " " + getIntent().getStringExtra(getString(R.string.extra_shopname));
+    String shopAddress = getIntent().getStringExtra(getString(R.string.extra_shopaddress));
 
     shopNameTextView.setText(shopName);
     shopAddressTextView.setText(shopAddress);
