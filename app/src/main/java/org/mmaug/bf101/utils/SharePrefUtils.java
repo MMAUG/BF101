@@ -27,6 +27,9 @@ public class SharePrefUtils {
   protected SharedPreferences mSharePreferences;
   protected SharedPreferences.Editor mEditor;
 
+  private static final String FIRST_TIME = "first_time";
+  private static final String ONE_TIME = "one_time";
+
   public SharePrefUtils(Context context) {
     mSharePreferences = context.getSharedPreferences("CPref", 0);
     mEditor = mSharePreferences.edit();
@@ -40,10 +43,22 @@ public class SharePrefUtils {
   }
 
   public boolean isFirstTime() {
-    return mSharePreferences.getBoolean("firstTime", true);
+    return mSharePreferences.getBoolean(FIRST_TIME, true);
   }
 
   public void noMoreFirstTime() {
-    mEditor.putBoolean("firstTime", false).commit();
+    mEditor.putBoolean(FIRST_TIME, false).commit();
+  }
+
+  public void setOneTime() {
+    mEditor.putBoolean(ONE_TIME, true).commit();
+  }
+
+  public boolean toShowOneTime() {
+    return mSharePreferences.getBoolean(ONE_TIME, true);
+  }
+
+  public void showedOneTime() {
+    mEditor.putBoolean(ONE_TIME, false).commit();
   }
 }

@@ -94,14 +94,16 @@ public class MainActivity extends ActionBarActivity {
   @Override protected void onResume() {
     super.onResume();
 
-    refreshBarView.setVisibility(View.VISIBLE);
+    if (sharePrefUtils.toShowOneTime()) {
+      refreshBarView.setVisibility(View.VISIBLE);
+      sharePrefUtils.showedOneTime();
+    }
 
     if (sharePrefUtils.isFirstTime()) {
       loadData();
       sharePrefUtils.noMoreFirstTime();
     } else {
       shopListView.setVisibility(View.VISIBLE);
-      refreshBarView.setVisibility(View.VISIBLE);
       items = (ArrayList<Shop>) storageUtil.ReadArrayListFromSD("shop");
       ShopListAdapter itemsAdapter = new ShopListAdapter(getApplicationContext(), items);
       itemsAdapter.notifyDataSetChanged();
