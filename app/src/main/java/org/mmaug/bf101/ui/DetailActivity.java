@@ -20,6 +20,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -46,68 +47,82 @@ public class DetailActivity extends ActionBarActivity {
 
   @InjectView(R.id.list) ListView featureListView;
   @InjectView(R.id.headerText) TextView shopNameTextView;
-  @InjectView(R.id.action_bar) TextView actionBar;
+  @InjectView(R.id.action_bar) TextView actionBarText;
   @InjectView(R.id.Shop_Address) TextView shopAddressTextView;
-  @InjectView(R.id.distanceLocation) TextView distancLocation;
 
-  String shopName;
-  String shopAddress;
-  MapView map;
-  Typeface font;
+  private MapView map;
+  private Typeface font;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    getSupportActionBar().setHomeButtonEnabled(true);
-    getSupportActionBar().setDisplayShowCustomEnabled(true);
-    getSupportActionBar().setCustomView(R.layout.actionbar);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    ActionBar actionBar = getSupportActionBar();
+
+    actionBar.setHomeButtonEnabled(true);
+    actionBar.setDisplayShowCustomEnabled(true);
+    actionBar.setCustomView(R.layout.actionbar);
+    actionBar.setDisplayHomeAsUpEnabled(true);
+
     setContentView(R.layout.activity_detail);
+
     ButterKnife.inject(this);
     MapsInitializer.initialize(this);
+
     map = (MapView) findViewById(R.id.mapView);
     map.onCreate(savedInstanceState);
     map.onResume();
+
     final LatLng yangon = new LatLng(16.774745, 96.150649);
+
     map.getMap().getUiSettings().setMyLocationButtonEnabled(false);
     map.getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(yangon, 10));
     map.getMap().setMyLocationEnabled(true);
+
     font = Typeface.createFromAsset(this.getAssets(), "fonts/zawgyi.ttf");
-    shopName = " " + getIntent().getStringExtra("shopname");
-    shopAddress = getIntent().getStringExtra("shopaddress");
+
+    String shopName = " " + getIntent().getStringExtra("shopname");
+    String shopAddress = getIntent().getStringExtra("shopaddress");
+
     shopNameTextView.setText(shopName);
     shopAddressTextView.setText(shopAddress);
     shopNameTextView.setTypeface(font);
-    actionBar.setText(shopName);
-    actionBar.setTypeface(font);
+    actionBarText.setText(shopName);
+    actionBarText.setTypeface(font);
+
     IconGenerator iconFactory = new IconGenerator(this);
     iconFactory.setStyle(IconGenerator.STYLE_WHITE);
+
     Bundle b = this.getIntent().getExtras();
     String[] latArray = b.getStringArray("lat");
     String[] lngArray = b.getStringArray("lng");
     String[] branchArray = b.getStringArray("branch");
+
     //for generating marker
     //To Get User Current Location from GPS
     LocationManager locationManager =
         (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
     double lat =
-        locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER).getLatitude();
+        locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLatitude();
     double lng =
-        locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER).getLongitude();
+        locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLongitude();
+
     android.location.Location location = new android.location.Location("current");
     location.setLatitude(lat);
     location.setLongitude(lng);
     Double[] distance = new Double[latArray.length];
+
     for (int count = 0; count < latArray.length; count++) {
       addIcon(iconFactory, branchArray[count],
           new LatLng(Double.parseDouble(latArray[count]), Double.parseDouble(lngArray[count])),
           "id");
+
       android.location.Location locationShop = new android.location.Location("current");
       locationShop.setLatitude(Double.parseDouble(latArray[count]));
       locationShop.setLongitude(Double.parseDouble(lngArray[count]));
-      distance[count] = Double.valueOf(location.distanceTo(locationShop));
+      distance[count] = (double) location.distanceTo(locationShop);
     }
-    //TO DO we need to show distance from user current location and convert to Kilo Meter
+
+    // TODO we need to show distance from user current location and convert to kilometer
     shopAddressTextView.setTypeface(font);
     List<String> featureFoodList = getIntent().getStringArrayListExtra("Feature");
     String feature[] = new String[featureFoodList.size()];
@@ -116,6 +131,7 @@ public class DetailActivity extends ActionBarActivity {
       feature[i] = featureFoodList.get(i);
       i++;
     }
+
     View headerView =
         ((LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.header,
             featureListView, false);
