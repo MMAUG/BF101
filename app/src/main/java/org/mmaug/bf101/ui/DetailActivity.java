@@ -50,7 +50,7 @@ public class DetailActivity extends ActionBarActivity {
   @InjectView(R.id.action_bar) TextView actionBarText;
   @InjectView(R.id.Shop_Address) TextView shopAddressTextView;
   @InjectView(R.id.mapView) MapView map;
-  
+
   private Typeface font;
 
   @Override
