@@ -101,24 +101,26 @@ public class DetailActivity extends ActionBarActivity {
     //To Get User Current Location from Wifi
     LocationManager locationManager =
         (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-    double lat =
-        locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLatitude();
-    double lng =
-        locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLongitude();
 
-    android.location.Location location = new android.location.Location("current");
-    location.setLatitude(lat);
-    location.setLongitude(lng);
-    Double[] distance = new Double[latArray.length];
+    if (locationManager != null) {
+      double lat =
+          locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLatitude();
+      double lng =
+          locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLongitude();
+      android.location.Location location = new android.location.Location("current");
+      location.setLatitude(lat);
+      location.setLongitude(lng);
+      Double[] distance = new Double[latArray.length];
 
-    for (int count = 0; count < latArray.length; count++) {
-      addIcon(iconFactory, branchArray[count],
-          new LatLng(Double.parseDouble(latArray[count]), Double.parseDouble(lngArray[count])));
+      for (int count = 0; count < latArray.length; count++) {
+        addIcon(iconFactory, branchArray[count],
+            new LatLng(Double.parseDouble(latArray[count]), Double.parseDouble(lngArray[count])));
 
-      android.location.Location locationShop = new android.location.Location("current");
-      locationShop.setLatitude(Double.parseDouble(latArray[count]));
-      locationShop.setLongitude(Double.parseDouble(lngArray[count]));
-      distance[count] = (double) location.distanceTo(locationShop);
+        android.location.Location locationShop = new android.location.Location("current");
+        locationShop.setLatitude(Double.parseDouble(latArray[count]));
+        locationShop.setLongitude(Double.parseDouble(lngArray[count]));
+        distance[count] = (double) location.distanceTo(locationShop);
+      }
     }
 
     // TODO we need to show distance from user current location and convert to kilometer
