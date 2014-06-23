@@ -14,19 +14,14 @@
       android:layout_height="match_parent"
       android:textColor="@drawable/text_bg" />
 
-  <TextView
+  <ImageView
       android:id="@+id/new_shop"
-      android:text="@string/cap_new"
-      android:textColor="@android:color/white"
       android:textStyle="bold"
-      android:background="@color/text_color"
-      android:paddingTop="3dp"
-      android:paddingBottom="3dp"
-      android:paddingLeft="2dp"
-      android:paddingRight="2dp"
+      android:background="@drawable/forkme_light_background"
+      android:adjustViewBounds="true"
       android:visibility="gone"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_width="80dp"
+      android:layout_height="80dp"
       android:layout_alignParentRight="true"
       android:layout_alignParentEnd="true" />
 

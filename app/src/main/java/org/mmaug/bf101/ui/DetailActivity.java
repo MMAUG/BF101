@@ -105,14 +105,14 @@ public class DetailActivity extends ActionBarActivity {
         (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
     if (locationManager != null) {
-      double lat =
+      /*double lat =
           locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLatitude();
       double lng =
           locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLongitude();
       android.location.Location location = new android.location.Location("current");
       location.setLatitude(lat);
       location.setLongitude(lng);
-      Double[] distance = new Double[latArray.length];
+      Double[] distance = new Double[latArray.length];*/
 
       for (int count = 0; count < latArray.length; count++) {
         addIcon(iconFactory, branchArray[count],
@@ -121,7 +121,7 @@ public class DetailActivity extends ActionBarActivity {
         android.location.Location locationShop = new android.location.Location("current");
         locationShop.setLatitude(Double.parseDouble(latArray[count]));
         locationShop.setLongitude(Double.parseDouble(lngArray[count]));
-        distance[count] = (double) location.distanceTo(locationShop);
+       /* distance[count] = (double) location.distanceTo(locationShop);*/
       }
     }
 

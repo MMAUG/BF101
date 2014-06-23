@@ -90,7 +90,7 @@ public class ShopListAdapter extends BaseAdapter {
   static class ViewHolder {
     @InjectView(R.id.shop_name) TextView name;
     @InjectView(R.id.shop_address) TextView address;
-    @InjectView(R.id.new_shop) TextView newshop;
+    @InjectView(R.id.new_shop) ImageView newshop;
 
     public ViewHolder(View view) {
       ButterKnife.inject(this, view);
