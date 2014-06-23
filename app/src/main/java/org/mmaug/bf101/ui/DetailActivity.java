@@ -49,8 +49,8 @@ public class DetailActivity extends ActionBarActivity {
   @InjectView(R.id.headerText) TextView shopNameTextView;
   @InjectView(R.id.action_bar) TextView actionBarText;
   @InjectView(R.id.Shop_Address) TextView shopAddressTextView;
-
-  private MapView map;
+  @InjectView(R.id.mapView) MapView map;
+  
   private Typeface font;
 
   @Override
@@ -68,7 +68,6 @@ public class DetailActivity extends ActionBarActivity {
     ButterKnife.inject(this);
     MapsInitializer.initialize(this);
 
-    map = (MapView) findViewById(R.id.mapView);
     map.onCreate(savedInstanceState);
     map.onResume();
 
