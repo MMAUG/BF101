@@ -30,8 +30,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
@@ -179,5 +182,24 @@ public class DetailActivity extends ActionBarActivity {
       default:
         return super.onOptionsItemSelected(item);
     }
+  }
+
+  private boolean checkPlayServices() {
+    int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+    if (status != ConnectionResult.SUCCESS) {
+      if (GooglePlayServicesUtil.isUserRecoverableError(status)) {
+        Toast.makeText(this, "User Recoverable Error", Toast.LENGTH_LONG).show();
+      } else {
+        Toast.makeText(this, "This device is not supported.", Toast.LENGTH_LONG).show();
+        finish();
+      }
+      return false;
+    }
+    return true;
+  }
+
+  @Override protected void onResume() {
+    super.onResume();
+    checkPlayServices();
   }
 }
