@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Copyright 2014 MMAUG (Myanmar Android User Group)
   ~
@@ -15,10 +14,27 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<selector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:exitFadeDuration="@android:integer/config_mediumAnimTime">
-    <item android:drawable="@drawable/bg_card_selector" android:state_focused="true" android:state_pressed="false"/>
-    <item android:drawable="@drawable/bg_card_selector" android:state_pressed="true"/>
-    <item android:drawable="@drawable/bg_card"/>
 
-</selector>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item>
+    <shape
+        android:shape="rectangle"
+        android:dither="true">
+      <corners android:radius="2dp"/>
+      <solid android:color="#ccc"/>
+    </shape>
+  </item>
+  <item android:bottom="2dp">
+    <shape
+        android:shape="rectangle"
+        android:dither="true">
+      <corners android:radius="2dp"/>
+      <solid android:color="#f1f1f1"/>
+      <padding
+          android:bottom="10dp"
+          android:left="2dp"
+          android:right="2dp"
+          android:top="1dp"/>
+    </shape>
+  </item>
+</layer-list>
