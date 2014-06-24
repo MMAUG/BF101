@@ -18,6 +18,7 @@ package org.mmaug.bf101.ui;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.location.Criteria;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -103,25 +104,26 @@ public class DetailActivity extends ActionBarActivity {
     //To Get User Current Location from Wifi
     LocationManager locationManager =
         (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
-    if (locationManager != null) {
-      /*double lat =
-          locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLatitude();
-      double lng =
-          locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLongitude();
-      android.location.Location location = new android.location.Location("current");
-      location.setLatitude(lat);
-      location.setLongitude(lng);
-      Double[] distance = new Double[latArray.length];*/
-
+    Criteria criteria = new Criteria();
+    //Use FINE or COARSE (or NO_REQUIREMENT) here
+    criteria.setAccuracy(Criteria.ACCURACY_FINE);
+    criteria.setPowerRequirement(Criteria.POWER_LOW);
+    criteria.setAltitudeRequired(true);
+    criteria.setSpeedRequired(true);
+    criteria.setCostAllowed(true);
+    criteria.setBearingRequired(true);
+    String networkProvider = locationManager.getBestProvider(criteria, true);
+    android.location.Location currentLocaiton =
+        locationManager.getLastKnownLocation(networkProvider);
+    if (currentLocaiton != null) {
+      Double[] distance = new Double[latArray.length];
       for (int count = 0; count < latArray.length; count++) {
         addIcon(iconFactory, branchArray[count],
             new LatLng(Double.parseDouble(latArray[count]), Double.parseDouble(lngArray[count])));
-
-        android.location.Location locationShop = new android.location.Location("current");
+        android.location.Location locationShop = new android.location.Location("shop");
         locationShop.setLatitude(Double.parseDouble(latArray[count]));
         locationShop.setLongitude(Double.parseDouble(lngArray[count]));
-       /* distance[count] = (double) location.distanceTo(locationShop);*/
+        distance[count] = (double) currentLocaiton.distanceTo(locationShop);
       }
     }
 
