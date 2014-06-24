@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="list_item_divider">#FFEE5056</color>
-    <color name="text_color">#FF383836</color>
-    <!-- The color of the normal state. -->
-    <drawable name="listitem_normal">#FFFFFF</drawable>
-    <!-- The two color below show when the item is pressed, you should change that to the color you want. -->
-    <drawable name="listitem_pressed">#ccc</drawable>
-    <drawable name="listitem_selected">#ccc</drawable>
+  <color name="list_item_divider">#FFEE5056</color>
+  <color name="text_color">#FF383836</color>
+  <!-- The color of the normal state. -->
+  <drawable name="listitem_normal">#FFFFFF</drawable>
+  <!-- The two color below show when the item is pressed, you should change that to the color you want. -->
+  <drawable name="listitem_pressed">#ccc</drawable>
+  <drawable name="listitem_selected">#ccc</drawable>
+  <color name="test">#1A000000</color>
 
-    <color name="transparent_refresh_bg">#80212121</color>
+  <color name="transparent_refresh_bg">#80212121</color>
 </resources>
