@@ -47,7 +47,7 @@
       android:layout_height="wrap_content"/>
 
   <TextView
-      android:id="@+id/Shop_Address"
+      android:id="@+id/shop_address"
       android:layout_below="@+id/headerText"
       android:drawableLeft="@drawable/address"
       android:gravity="center_vertical"
@@ -62,7 +62,7 @@
       android:paddingLeft="@dimen/activity_horizontal_margin"
       android:paddingRight="@dimen/activity_horizontal_margin"
       android:scrollbarStyle="outsideInset"
-      android:layout_below="@+id/Shop_Address"
+      android:layout_below="@id/shop_address"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
 

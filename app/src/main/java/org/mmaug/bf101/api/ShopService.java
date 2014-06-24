@@ -12,6 +12,5 @@ import retrofit.http.GET;
  * Created by SH on 14/Jun/2014.
  */
 public interface ShopService {
-    @GET(Config.SHOP_URL)
-    void getAllShop(Callback<List<Shop>> callback);
+  @GET(Config.SHOP_URL) void getAllShop(Callback<List<Shop>> callback);
 }
