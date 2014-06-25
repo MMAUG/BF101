@@ -42,7 +42,6 @@
       </intent-filter>
     </activity>
     <activity
-        android:configChanges="orientation|screenSize"
         android:name="org.mmaug.bf101.ui.DetailActivity"
         android:label="@string/title_activity_detail">
     </activity>

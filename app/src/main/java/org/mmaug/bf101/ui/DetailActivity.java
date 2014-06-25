@@ -202,7 +202,7 @@ public class DetailActivity extends ActionBarActivity {
     return true;
   }
 
-  //ToDo Fix this method can detect change orientation but not retain data
+  /*//ToDo Fix this method can detect change orientation but not retain data
   public void onConfigurationChanged(Configuration newConfig) {
     super.onConfigurationChanged(newConfig);
     if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -211,5 +211,5 @@ public class DetailActivity extends ActionBarActivity {
       setContentView(R.layout.activity_detail);
       Log.e("On Config Change", "PORTRAIT");
     }
-  }
+  }*/
 }
