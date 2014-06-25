@@ -17,12 +17,14 @@
 package org.mmaug.bf101.ui;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.location.Criteria;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -200,8 +202,14 @@ public class DetailActivity extends ActionBarActivity {
     return true;
   }
 
-  @Override protected void onResume() {
-    super.onResume();
-    checkPlayServices();
+  //ToDo Fix this method can detect change orientation but not retain data
+  public void onConfigurationChanged(Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+    if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+      setContentView(R.layout.activity_detail);
+    } else {
+      setContentView(R.layout.activity_detail);
+      Log.e("On Config Change", "PORTRAIT");
+    }
   }
 }
