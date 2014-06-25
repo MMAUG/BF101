@@ -126,7 +126,7 @@ public class MainActivity extends ActionBarActivity {
       loadingText.setVisibility(View.VISIBLE);
       refreshBarView.setVisibility(View.GONE);
 
-      ShopAPI.getInstance(this).getService().getAllShop(new Callback<List<Shop>>() {
+      ShopAPI.getInstance().getService().getAllShop(new Callback<List<Shop>>() {
         @Override
         public void success(List<Shop> result, Response response) {
           items = new ArrayList<Shop>();

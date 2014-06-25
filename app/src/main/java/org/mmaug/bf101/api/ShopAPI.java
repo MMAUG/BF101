@@ -9,11 +9,9 @@ import retrofit.RestAdapter;
  */
 public class ShopAPI {
   private static ShopAPI mInstance;
-  private Context mContext;
   private ShopService mService;
 
-  public ShopAPI(Context context) {
-    this.mContext = context;
+  public ShopAPI() {
 
     final RestAdapter restAdapter =
         new RestAdapter.Builder().setLogLevel(RestAdapter.LogLevel.BASIC)
@@ -22,9 +20,9 @@ public class ShopAPI {
     mService = restAdapter.create(ShopService.class);
   }
 
-  public static ShopAPI getInstance(Context context) {
+  public static ShopAPI getInstance() {
     if (mInstance == null) {
-      mInstance = new ShopAPI(context);
+      mInstance = new ShopAPI();
     }
     return mInstance;
   }
