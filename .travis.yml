@@ -28,6 +28,11 @@ before_install:
   - echo yes | android update sdk --filter sys-img-x86-android-19 --no-ui --force > /dev/null
   - echo yes | android update sdk --filter extra-android-support --no-ui --force > /dev/null
   - echo yes | android update sdk --filter extra-android-m2repository --no-ui --force > /dev/null
+  - echo yes | android update sdk --filter extra-google-play-services --no-ui --force > /dev/null
 
+licenses:
+  - android-sdk-license-5be876d5 # new license!
+  - '.*intel.+'
+  
 install:
  - ./gradlew assemble
