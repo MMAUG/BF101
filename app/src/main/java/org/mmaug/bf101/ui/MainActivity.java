@@ -47,7 +47,7 @@ import retrofit.client.Response;
 
 public class MainActivity extends ActionBarActivity {
   @InjectView(R.id.listView) ListView shopListView;
-  @InjectView(R.id.progressBar) ProgressBar mProgressBar;
+  @InjectView(R.id.progress_bar) ProgressBar mProgressBar;
   @InjectView(R.id.emptyView) View emptyView;
   @InjectView(R.id.loadingText) TextView loadingText;
   @InjectView(R.id.btnretry) Button retry;

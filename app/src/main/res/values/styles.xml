@@ -1,8 +1,22 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-    </style>
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!-- Customize your theme here. -->
+  </style>
+
+  <style name="None">
+  </style>
+
+  <style name="BF101.ProgressBar" parent="None">
+    <item name="android:indeterminateDrawable">@drawable/progress_indeterminate</item>
+    <item name="android:indeterminateOnly">true</item>
+    <item name="android:indeterminateBehavior">repeat</item>
+    <item name="android:indeterminateDuration">900</item>
+    <item name="android:minWidth">50dp</item>
+    <item name="android:maxWidth">50dp</item>
+    <item name="android:minHeight">50dp</item>
+    <item name="android:maxHeight">50dp</item>
+  </style>
 
 </resources>
