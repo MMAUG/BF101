@@ -105,6 +105,7 @@ public class MainActivity extends ActionBarActivity {
       loadData();
       sharePrefUtils.noMoreFirstTime();
     } else {
+      mProgressBar.setVisibility(View.GONE);
       shopListView.setVisibility(View.VISIBLE);
       items = (ArrayList<Shop>) storageUtil.ReadArrayListFromSD("shop");
       ShopListAdapter itemsAdapter = new ShopListAdapter(getApplicationContext(), items);
@@ -141,6 +142,7 @@ public class MainActivity extends ActionBarActivity {
           ShopListAdapter itemsAdapter = new ShopListAdapter(getApplicationContext(), items);
           itemsAdapter.notifyDataSetChanged();
           shopListView.setAdapter(itemsAdapter);
+          mProgressBar.setVisibility(View.GONE);
         }
 
         @Override

@@ -63,25 +63,22 @@ public class DetailActivity extends ActionBarActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     ActionBar actionBar = getSupportActionBar();
-
     actionBar.setHomeButtonEnabled(true);
     actionBar.setDisplayShowCustomEnabled(true);
     actionBar.setCustomView(R.layout.actionbar);
     actionBar.setDisplayHomeAsUpEnabled(true);
-
     setContentView(R.layout.activity_detail);
-
     ButterKnife.inject(this);
     MapsInitializer.initialize(this);
-
     map.onCreate(savedInstanceState);
     map.onResume();
 
     final LatLng yangon = new LatLng(16.774745, 96.150649);
 
     map.getMap().getUiSettings().setMyLocationButtonEnabled(false);
-    map.getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(yangon, 10));
+    map.getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(yangon, 9));
     map.getMap().setMyLocationEnabled(true);
+
 
     font = Typeface.createFromAsset(this.getAssets(), "fonts/zawgyi.ttf");
 
