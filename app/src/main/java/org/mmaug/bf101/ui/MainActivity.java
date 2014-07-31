@@ -150,6 +150,9 @@ public class MainActivity extends ActionBarActivity {
           retry.setVisibility(View.VISIBLE);
         }
       });
+    } else {
+      Toast.makeText(MainActivity.this, getString(R.string.no_connection_cant_refresh),
+          Toast.LENGTH_SHORT).show();
     }
   }
 

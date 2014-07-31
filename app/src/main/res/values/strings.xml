@@ -31,4 +31,6 @@
 
   <string name="extra_shopname">shopname</string>
   <string name="extra_shopaddress">shopaddress</string>
+
+  <string name="no_connection_cant_refresh">Can\'t refresh. Check your network connection.</string>
 </resources>
