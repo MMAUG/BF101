@@ -84,7 +84,6 @@
         android:textStyle="bold"
         android:textColor="@android:color/white"
         android:background="?android:selectableItemBackground"
-        android:textAllCaps="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
   </LinearLayout>
